@@ -1,0 +1,25 @@
+{
+  "author": {
+    "name": "Timothy M. Stepanski",
+    "email": "timothy@timothystepanski.com",
+    "url": "https://github.com/tstepanski"
+  },
+  "description": "Provides functionality to integrate with Discord's Gateway Events",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.13.10",
+	"jest": "^29.7.0",
+	"ts-jest": "^29.2.6",
+    "typescript": "^5.8.2"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "yam-discord-gateway",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "type": "module",
+  "version": "0.1.0"
+}
