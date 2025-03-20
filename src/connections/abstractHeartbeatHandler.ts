@@ -8,11 +8,6 @@ export class AbstractHeartbeatHandler<TData> implements InternalOperationHandler
 	                      private readonly sendImmediately: boolean = false) {
 	}
 
-	// @ts-ignore
-	protected internalHandleAsync(payload: GatewayEventPayload<TData>, connection: Connection): Promise<void> {
-		return Promise.resolve();
-	}
-
 	public get opCode(): OpCode<TData> {
 		return this.opCodeInstance;
 	}
@@ -30,6 +25,11 @@ export class AbstractHeartbeatHandler<TData> implements InternalOperationHandler
 		} else {
 			await this.sendDelayed(connection, outgoingPayload);
 		}
+	}
+
+	// @ts-ignore
+	protected internalHandleAsync(payload: GatewayEventPayload<TData>, connection: Connection): Promise<void> {
+		return Promise.resolve();
 	}
 
 	private sendDelayed(connection: Connection, outgoingPayload: GatewayEventPayload<Heartbeat | null>): Promise<void> {

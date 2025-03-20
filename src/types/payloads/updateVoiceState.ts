@@ -20,7 +20,7 @@ import {Snowflake} from "../general";
 export interface UpdateVoiceState {
 	/**
 	 * ID of the guild
- 	 */
+	 */
 	guild_id: Snowflake;
 
 	/**

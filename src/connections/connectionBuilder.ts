@@ -24,6 +24,10 @@ export class ConnectionBuilder {
 		};
 	}
 
+	public static new(secrets: Secrets): ConnectionBuilder {
+		return new ConnectionBuilder(secrets);
+	}
+
 	public addDesiredIntent(intent: Intent): ConnectionBuilder {
 		this.desiredIntents |= intent;
 
@@ -59,9 +63,5 @@ export class ConnectionBuilder {
 
 	public build(): ConnectionContract {
 		return new Connection(this.handlers, this.desiredIntents, this.identifyConnectionProperties, this.secrets);
-	}
-
-	public static new(secrets: Secrets): ConnectionBuilder {
-		return new ConnectionBuilder(secrets);
 	}
 }

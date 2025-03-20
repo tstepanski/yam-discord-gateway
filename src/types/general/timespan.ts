@@ -10,26 +10,6 @@ export class Timespan {
 		this._totalMilliseconds = totalMilliseconds;
 	}
 
-	public static fromMilliseconds(totalMilliseconds: number): Timespan {
-		return new Timespan(totalMilliseconds);
-	}
-
-	public static fromSeconds(totalSeconds: number): Timespan {
-		return Timespan.fromMilliseconds(totalSeconds * Timespan.MILLISECONDS_PER_SECOND);
-	}
-
-	public static fromMinutes(totalMinutes: number): Timespan {
-		return Timespan.fromMilliseconds(totalMinutes * Timespan.MILLISECONDS_PER_MINUTE);
-	}
-
-	public static fromHours(totalHours: number): Timespan {
-		return Timespan.fromMilliseconds(totalHours * Timespan.MILLISECONDS_PER_HOUR);
-	}
-
-	public static fromDays(totalDays: number): Timespan {
-		return Timespan.fromMilliseconds(totalDays * Timespan.MILLISECONDS_PER_DAY);
-	}
-
 	public get totalMilliseconds(): number {
 		return this._totalMilliseconds;
 	}
@@ -48,6 +28,26 @@ export class Timespan {
 
 	public get totalDays(): number {
 		return this._totalMilliseconds / Timespan.MILLISECONDS_PER_DAY;
+	}
+
+	public static fromMilliseconds(totalMilliseconds: number): Timespan {
+		return new Timespan(totalMilliseconds);
+	}
+
+	public static fromSeconds(totalSeconds: number): Timespan {
+		return Timespan.fromMilliseconds(totalSeconds * Timespan.MILLISECONDS_PER_SECOND);
+	}
+
+	public static fromMinutes(totalMinutes: number): Timespan {
+		return Timespan.fromMilliseconds(totalMinutes * Timespan.MILLISECONDS_PER_MINUTE);
+	}
+
+	public static fromHours(totalHours: number): Timespan {
+		return Timespan.fromMilliseconds(totalHours * Timespan.MILLISECONDS_PER_HOUR);
+	}
+
+	public static fromDays(totalDays: number): Timespan {
+		return Timespan.fromMilliseconds(totalDays * Timespan.MILLISECONDS_PER_DAY);
 	}
 
 	public toString(): string {
