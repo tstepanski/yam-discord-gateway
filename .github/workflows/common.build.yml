@@ -24,8 +24,6 @@ jobs:
           cache: "npm"
           cache-dependency-path: "package-lock.json"
           node-version: "lts/*"
-          scope: "@tstepanski"
-          token: "${{ secrets.NPM_TOKEN }}"
 
       - name: "Restore"
         run: "npm install"
