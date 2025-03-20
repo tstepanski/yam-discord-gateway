@@ -1,7 +1,12 @@
 name: "Build Library"
 
 on:
-  - push
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -12,6 +17,12 @@ jobs:
     defaults:
       run:
         shell: "bash"
+
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
 
     steps:
       - name: "Checkout"
