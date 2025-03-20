@@ -17,9 +17,11 @@
   "main": "index.js",
   "name": "yam-discord-gateway",
   "scripts": {
-    "build": "tsc",
+    "build": "node build.js",
     "test": "jest"
   },
+  "module": "index.js",
   "type": "module",
+  "types": "index.d.ts",
   "version": "0.1.0"
 }
