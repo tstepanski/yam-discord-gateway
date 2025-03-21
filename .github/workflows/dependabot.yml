@@ -1,0 +1,11 @@
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+
+    commit-message:
+      prefix: "build(dependency): "
+
+    schedule:
+      interval: "weekly"
