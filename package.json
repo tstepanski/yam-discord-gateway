@@ -1,35 +1,64 @@
 {
   "author": {
-    "name": "Timothy M. Stepanski",
-    "email": "timothy@timothystepanski.com",
-    "url": "https://github.com/tstepanski"
+	"name": "Timothy M. Stepanski",
+	"email": "timothy@timothystepanski.com",
+	"url": "https://github.com/tstepanski"
   },
   "description": "Provides functionality to integrate with Discord's Gateway Events",
   "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "@types/node": "^22.13.10",
+	"@types/jest": "^29.5.14",
+	"@types/node": "^22.13.10",
 	"jest": "^29.7.0",
-    "semantic-release": "^24.2.3",
+	"semantic-release": "^24.2.3",
 	"ts-jest": "^29.2.6",
-    "typescript": "^5.8.2"
+	"typescript": "^5.8.2"
   },
   "keywords": [],
   "license": "MIT",
   "main": "index.js",
   "name": "yam-discord-gateway",
   "scripts": {
-    "build": "node build.js",
-    "test": "jest"
+	"build": "node build.js",
+	"test": "jest"
   },
   "module": "index.js",
   "release": {
-    "branches": [
-      "main"
-    ]
+	"branches": [
+	  "main"
+	],
+	"plugins": [
+	  [
+		"@semantic-release/commit-analyzer",
+		{
+		  "preset": "angular",
+		  "releaseRules": [
+			{
+			  "type": "docs",
+			  "release": "patch"
+			},
+			{
+			  "type": "refactor",
+			  "release": "patch"
+			},
+			{
+			  "type": "ci",
+			  "release": "patch"
+			}
+		  ],
+		  "parserOpts": {
+			"noteKeywords": [
+			  "BREAKING ",
+			  "BREAKING:"
+			]
+		  }
+		}
+	  ],
+	  "@semantic-release/release-notes-generator"
+	]
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tstepanski/yam-discord-gateway.git"
+	"type": "git",
+	"url": "git+https://github.com/tstepanski/yam-discord-gateway.git"
   },
   "type": "module",
   "types": "index.d.ts",
