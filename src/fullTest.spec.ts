@@ -12,8 +12,6 @@ describe("FullTest", () => {
 	}
 
 	it("should receive basic events", done => {
-
-
 		ConnectionBuilder
 			.new({
 				applicationId: getEnvironmentVariable("APPLICATION_ID"),
