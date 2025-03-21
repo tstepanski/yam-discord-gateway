@@ -13,6 +13,8 @@ jobs:
     name: "Build"
     runs-on: "ubuntu-latest"
     timeout-minutes: 5
+    concurrency:
+      group: "NPM Release"
 
     defaults:
       run:
