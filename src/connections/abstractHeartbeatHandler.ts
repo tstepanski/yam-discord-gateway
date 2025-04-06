@@ -17,7 +17,7 @@ export class AbstractHeartbeatHandler<TData> implements InternalOperationHandler
 
 		const outgoingPayload = <GatewayEventPayload<Heartbeat | null>>{
 			op: OpCodes.Heartbeat.code,
-			d: connection.sequenceNumber
+			d: connection.sequenceNumber ?? null
 		};
 
 		if (this.sendImmediately) {

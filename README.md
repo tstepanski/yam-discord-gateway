@@ -15,7 +15,7 @@ await ConnectionBuilder
         discordToken: process.env.DISCORD_TOKEN,
         publicKey: process.env.PUBLIC_KEY
     })
-    .addEventHandler(OpCodes.Dispatch, payload => {
+    .addDispatchEventHandler(EventName.Ready, payload => {
         console.log(`${payload.d?.user.id} sent a payload`);
     })
     .build()

@@ -1,3 +1,5 @@
+import {TEvent} from "./payloads";
+
 // noinspection GrazieInspection
 /**
  * Gateway event payloads have a common structure, but the contents of the associated data
@@ -37,5 +39,5 @@ export interface GatewayEventPayload<T> {
 	/**
 	 * Event name
 	 */
-	t?: string;
+	t?: TEvent;
 }

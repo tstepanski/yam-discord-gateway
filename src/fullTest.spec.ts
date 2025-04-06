@@ -1,4 +1,5 @@
-import {ConnectionBuilder, OpCodes} from "./index";
+import {ConnectionBuilder} from "./index";
+import {EventName} from "./types/payloads";
 
 describe("FullTest", () => {
 	function getEnvironmentVariable(name: string): string {
@@ -18,7 +19,7 @@ describe("FullTest", () => {
 				discordToken: getEnvironmentVariable("DISCORD_TOKEN"),
 				publicKey: getEnvironmentVariable("PUBLIC_KEY")
 			})
-			.addEventHandler(OpCodes.Dispatch, payload => {
+			.addDispatchEventHandler(EventName.Ready, payload => {
 				expect(payload.d?.user.id).toBeDefined();
 
 				done();

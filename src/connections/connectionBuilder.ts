@@ -5,16 +5,22 @@ import {Connection} from "./connection";
 import {builtInHandlers} from "./builtInHandlers";
 import {OperationHandlerFunction} from "./operationHandlerFunction";
 import {Secrets} from "./secrets";
-import {IdentifyConnectionProperties, Intent} from "../types/payloads";
+import {IdentifyConnectionProperties, Intent, TEvent} from "../types/payloads";
 import {OpCode} from "../types";
+import {DispatchOperationHandlerFunction} from "./dispatchOperationHandlerFunction";
+import {DispatchOperationHandler} from "./dispatchOperationHandler";
+import {SimpleDispatchHandler} from "./simpleDispatchHandler";
+import {DispatchHandlerWrapper} from "./dispatchHandlerWrapper";
 
 export class ConnectionBuilder {
 	private readonly handlers: OperationHandler<any>[];
+	private readonly dispatchHandlers: DispatchOperationHandler<any>[];
 	private desiredIntents: Intent;
 	private readonly identifyConnectionProperties: IdentifyConnectionProperties;
 
 	private constructor(private readonly secrets: Secrets) {
 		this.handlers = [...builtInHandlers];
+		this.dispatchHandlers = [];
 		this.desiredIntents = Intent.NONE;
 
 		this.identifyConnectionProperties = <IdentifyConnectionProperties>{
@@ -43,6 +49,15 @@ export class ConnectionBuilder {
 		return this;
 	}
 
+	public addDispatchEventHandler<T extends TEvent>(eventName: T,
+	                                                 handler: DispatchOperationHandlerFunction<T>): ConnectionBuilder {
+		const simpleHandler = new SimpleDispatchHandler<T>(eventName, handler);
+
+		this.dispatchHandlers.push(simpleHandler);
+
+		return this;
+	}
+
 	public withOperatingSystemReportedAs(operatingSystem: string): ConnectionBuilder {
 		this.identifyConnectionProperties.os = operatingSystem;
 
@@ -62,6 +77,9 @@ export class ConnectionBuilder {
 	}
 
 	public build(): ConnectionContract {
-		return new Connection(this.handlers, this.desiredIntents, this.identifyConnectionProperties, this.secrets);
+		const dispatchHandlerWrapper = new DispatchHandlerWrapper(this.dispatchHandlers);
+
+		return new Connection([...this.handlers, dispatchHandlerWrapper], this.desiredIntents,
+			this.identifyConnectionProperties, this.secrets);
 	}
 }

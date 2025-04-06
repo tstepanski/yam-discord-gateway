@@ -3,12 +3,13 @@ import {
 	GatewayPresenceUpdate,
 	Heartbeat,
 	Hello,
-	Identify, InvalidSession,
-	ReadyEvent,
+	Identify,
+	InvalidSession,
 	Reconnect,
 	RequestGuildMembers,
 	RequestSoundboardSounds,
-	Resume, UpdateVoiceState
+	Resume,
+	UpdateVoiceState
 } from "./payloads";
 import {UnknownEventCodeError} from "./exceptions";
 
@@ -24,8 +25,11 @@ export class OpCodes {
 
 	/**
 	 * An event was dispatched.
+	 * @deprecated Don't use this opcode directly. Use the
+	 * {@link ConnectionBuilder#addDispatchEventHandler specific builder method} to register listeners unless a truly
+	 * event agnostic solution is needed.
 	 */
-	public static readonly Dispatch: OpCode<ReadyEvent> = Object.seal({code: 0, client: false, gateway: true});
+	public static readonly Dispatch: OpCode<any> = Object.seal({code: 0, client: false, gateway: true});
 
 	/**
 	 * Fired periodically by the client to keep the connection alive.
