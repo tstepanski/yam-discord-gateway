@@ -1,5 +1,5 @@
 import {TriggerType} from "./triggerType";
-import {TriggerTypeActionType} from "./TriggerTypeActionType";
+import {TriggerTypeActionType} from "./triggerTypeActionType";
 import {ActionType} from "./actionType";
 import {ActionTypeMetadata} from "./actionTypeMetadata";
 

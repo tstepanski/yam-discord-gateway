@@ -1,7 +1,7 @@
 import {EventName} from "./eventName";
 import {Hello} from "./hello";
 import {ReadyEvent} from "./readyEvent";
-import {Rule} from "../automoderation";
+import {ActionExecutionEvent, Rule} from "../automoderation";
 import {GuildApplicationCommandPermissions} from "./guildApplicationCommandPermissions";
 
 /**
@@ -27,6 +27,8 @@ export interface EventTypeMap {
 	[EventName.AutoModerationRuleUpdate]: Rule<any>;
 
 	[EventName.AutoModerationRuleDelete]: Rule<any>;
+
+	[EventName.AutoModerationActionExecution]: ActionExecutionEvent<any, any>;
 }
 
 export type TEvent = EventName & keyof EventTypeMap;
