@@ -3,6 +3,7 @@ import {Hello} from "./hello";
 import {ReadyEvent} from "./readyEvent";
 import {ActionExecutionEvent, Rule} from "../automoderation";
 import {GuildApplicationCommandPermissions} from "./guildApplicationCommandPermissions";
+import {Channel} from "../channels";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -29,6 +30,18 @@ export interface EventTypeMap {
 	[EventName.AutoModerationRuleDelete]: Rule<any>;
 
 	[EventName.AutoModerationActionExecution]: ActionExecutionEvent<any, any>;
+
+	[EventName.ChannelCreate]: Channel;
+
+	[EventName.ChannelUpdate]: Channel;
+
+	[EventName.ChannelDelete]: Channel;
+
+	[EventName.ThreadCreate]: Channel;
+
+	[EventName.ThreadUpdate]: Channel;
+
+	[EventName.ThreadDelete]: Pick<Channel, "id" | "guild_id" | "parent_id" | "type">;
 }
 
 export type TEvent = EventName & keyof EventTypeMap;

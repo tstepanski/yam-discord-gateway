@@ -1,6 +1,7 @@
-import {User} from "./user";
+import {User} from "../users";
 import {UnavailableGuild} from "./unavailableGuild";
 import {Application} from "./application";
+import {ApiVersion} from "../general";
 
 /**
  * The ready event is dispatched when a client has completed the initial handshake with the gateway (for new sessions).
@@ -17,7 +18,7 @@ export interface ReadyEvent {
 	/**
 	 * [API version](https://discord.com/developers/docs/reference#api-versioning-api-versions)
 	 */
-	v: 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+	v: ApiVersion;
 
 	/**
 	 * Information about the user including email

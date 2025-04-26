@@ -20,4 +20,3 @@ export * from "./resume";
 export * from "./threadMembersUpdateEvent";
 export * from "./unavailableGuild";
 export * from "./updateVoiceState";
-export * from "./user";
