@@ -20,10 +20,16 @@ export class DispatchHandlerWrapper implements OperationHandler<any> {
 			return;
 		}
 
-		const tasks = handlers.map(handler => handler.handleAsync(dispatchPayload, connection));
+		const tasks = handlers.map(async handler => {
+			const label = handler.constructor.name || "UnnamedDispatchHandler";
+			console.time(`DispatchHandler ${label}`);
+			await handler.handleAsync(dispatchPayload, connection);
+			console.timeEnd(`DispatchHandler ${label}`);
+		});
 
 		await Promise.all(tasks);
 	}
+
 
 	public get opCode(): OpCode<any> {
 		// @ts-ignore
