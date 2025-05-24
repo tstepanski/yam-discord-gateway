@@ -2,7 +2,6 @@ import {ConnectionBuilder} from "./index";
 import {EventName} from "./types/payloads";
 
 type Resolve = (value: (void | PromiseLike<void>)) => void;
-type Reject = (reason?: any) => void;
 
 describe("FullTest", () => {
 	function getEnvironmentVariable(name: string): string {
@@ -17,12 +16,9 @@ describe("FullTest", () => {
 
 	it("should receive basic events", async () => {
 		let resolve: Resolve;
-		let reject: Reject;
+		let result: any;
 
-		const assertion = new Promise<void>((innerResolve, innerReject) => {
-			resolve = innerResolve;
-			reject = innerReject;
-		});
+		const assertion = new Promise<void>(innerResolve => resolve = innerResolve);
 
 		const connection = ConnectionBuilder
 			.new({
@@ -32,13 +28,9 @@ describe("FullTest", () => {
 			})
 			.withNoReconnectStrategy()
 			.addDispatchEventHandler(EventName.Ready, payload => {
-				try {
-					expect(payload.d?.user.id).toBeDefined();
+				result = payload.d?.user.id;
 
-					resolve();
-				} catch (error) {
-					reject(error);
-				}
+				resolve();
 
 				return Promise.resolve();
 			})
@@ -46,8 +38,10 @@ describe("FullTest", () => {
 
 		void connection.startAsync();
 
+		await assertion;
+
 		await connection.stopAsync();
 
-		await assertion;
+		expect(result).toBeDefined();
 	}, 5000);
 });
