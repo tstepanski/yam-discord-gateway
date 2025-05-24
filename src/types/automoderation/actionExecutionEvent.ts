@@ -9,6 +9,7 @@ import {Intent} from "../payloads";
  * Auto Moderation Action Execution Event
  *
  * @see [Auto Moderation Action Execution Event Fields](https://discord.com/developers/docs/events/gateway-events#auto-moderation-action-execution-auto-moderation-action-execution-event-fields)
+ *
  * @interface
  */
 export interface ActionExecutionEvent<TTriggerType extends TriggerType, TActionType extends TriggerTypeActionType[TTriggerType]>  {
@@ -69,7 +70,7 @@ export interface ActionExecutionEvent<TTriggerType extends TriggerType, TActionT
 	/**
 	 * Word or phrase configured in the rule that triggered the rule
 	 */
-	matched_keyword?: string | null;
+	matched_keyword: string | null;
 
 	/**
 	 * Substring in content that triggered the rule
