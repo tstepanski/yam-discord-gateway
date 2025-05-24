@@ -54,6 +54,8 @@ export class Connection implements ConnectionContract {
 			throw new Error("Connection is not started");
 		}
 
+		websocket.onmessage = null;
+
 		this.closeRequested = true;
 		this.sentIntents = false;
 
@@ -137,13 +139,16 @@ export class Connection implements ConnectionContract {
 		return await new Promise<boolean>((resolve, reject) => {
 			this.websocket = new WebSocket(`${gateway.url}?v=10&encoding=json`);
 
-			this.websocket.onmessage = (event: MessageEvent<string>): void => {
+			this.websocket.onmessage = async (event: MessageEvent<string>): Promise<void> => {
 				const eventPayload = JSON.parse(event.data) as GatewayEventPayload<any>;
 
 				this.sequenceNumber = eventPayload.s ?? this.sequenceNumber;
 
-				this.notifyHandlersAsync(eventPayload)
-					.catch(exception => reject(exception));
+				try {
+					await this.notifyHandlersAsync(eventPayload);
+				} catch (exception: any) {
+					reject(exception);
+				}
 			};
 
 			this.websocket.onclose = (event: CloseEvent): void => {
