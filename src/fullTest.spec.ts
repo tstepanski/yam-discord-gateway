@@ -1,7 +1,9 @@
-import {ConnectionBuilder} from "./index";
+import {ConnectionBuilder, ConnectionContract} from "./index";
 import {EventName} from "./types/payloads";
 
 describe("FullTest", () => {
+	let connection: ConnectionContract | undefined = undefined;
+
 	function getEnvironmentVariable(name: string): string {
 		const value = process.env[name];
 
@@ -12,8 +14,14 @@ describe("FullTest", () => {
 		throw new Error(`Environment variable ${name} is not set`);
 	}
 
+	afterAll(async () => {
+		if (connection) {
+			await connection.stopAsync();
+		}
+	});
+
 	it("should receive basic events", done => {
-		ConnectionBuilder
+		connection = ConnectionBuilder
 			.new({
 				applicationId: getEnvironmentVariable("APPLICATION_ID"),
 				discordToken: getEnvironmentVariable("DISCORD_TOKEN"),
@@ -26,10 +34,10 @@ describe("FullTest", () => {
 
 				return Promise.resolve();
 			})
-			.build()
+			.build();
+
+		connection
 			.startAsync()
-			.catch((reason: unknown) => {
-				done(reason);
-			});
+			.catch(done);
 	});
 });
