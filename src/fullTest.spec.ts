@@ -5,6 +5,8 @@ type Resolve = (value: (void | PromiseLike<void>)) => void;
 type Reject = (reason?: any) => void;
 
 describe("FullTest", () => {
+	let connection: ConnectionContract | undefined;
+
 	function getEnvironmentVariable(name: string): string {
 		const value = process.env[name];
 
@@ -15,43 +17,40 @@ describe("FullTest", () => {
 		throw new Error(`Environment variable ${name} is not set`);
 	}
 
-	async function createTest(
-		builderSetup: (connectionBuilder: ConnectionBuilder, resolve: Resolve, reject: Reject) => ConnectionBuilder):
-		Promise<void> {
-		let connection: ConnectionContract | undefined;
-
-		try {
-			await new Promise<void>(async (resolve, reject) => {
-				let connectionBuilder = ConnectionBuilder.new({
-					applicationId: getEnvironmentVariable("APPLICATION_ID"),
-					discordToken: getEnvironmentVariable("DISCORD_TOKEN"),
-					publicKey: getEnvironmentVariable("PUBLIC_KEY")
-				});
-
-				connectionBuilder = builderSetup(connectionBuilder, resolve, reject);
-
-				connection = connectionBuilder.build();
-
-				await connection.startAsync();
-			});
-		} finally {
-			if (connection) {
-				await connection.stopAsync();
-			}
+	afterEach(async () => {
+		if (connection) {
+			await connection.stopAsync();
 		}
-	}
+	});
 
-	it("should receive basic events", () => {
-		return createTest((connectionBuilder, resolve, reject) =>
-			connectionBuilder.addDispatchEventHandler(EventName.Ready, payload => {
+	it("should receive basic events", async () => {
+		let resolve: Resolve;
+		let reject: Reject;
+
+		const assertion = new Promise<void>((innerResolve, innerReject) => {
+			resolve = innerResolve;
+			reject = innerReject;
+		});
+
+		connection = ConnectionBuilder
+			.new({
+				applicationId: getEnvironmentVariable("APPLICATION_ID"),
+				discordToken: getEnvironmentVariable("DISCORD_TOKEN"),
+				publicKey: getEnvironmentVariable("PUBLIC_KEY")
+			})
+			.addDispatchEventHandler(EventName.Ready, payload => {
 				try {
 					expect(payload.d?.user.id).toBeDefined();
 					resolve();
-				} catch (error: unknown) {
+				} catch (error) {
 					reject(error);
 				}
 
 				return Promise.resolve();
-			}));
+			})
+			.build();
+
+		await connection.startAsync();
+		await assertion;
 	}, 5000);
 });
