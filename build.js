@@ -5,6 +5,8 @@ const execAsync = (command) =>
 	new Promise((resolve, reject) =>
 		exec(command, (error, stdout, stderr) => {
 			if (error) {
+				console.error(`Error: ${stdout}`);
+
 				reject(error);
 			} else {
 				resolve({stdout, stderr});
