@@ -1,12 +1,10 @@
-import {ConnectionBuilder, ConnectionContract} from "./index";
+import {ConnectionBuilder} from "./index";
 import {EventName} from "./types/payloads";
 
 type Resolve = (value: (void | PromiseLike<void>)) => void;
 type Reject = (reason?: any) => void;
 
 describe("FullTest", () => {
-	let connection: ConnectionContract | undefined;
-
 	function getEnvironmentVariable(name: string): string {
 		const value = process.env[name];
 
@@ -17,12 +15,6 @@ describe("FullTest", () => {
 		throw new Error(`Environment variable ${name} is not set`);
 	}
 
-	afterEach(async () => {
-		if (connection) {
-			await connection.stopAsync();
-		}
-	});
-
 	it("should receive basic events", async () => {
 		let resolve: Resolve;
 		let reject: Reject;
@@ -32,7 +24,7 @@ describe("FullTest", () => {
 			reject = innerReject;
 		});
 
-		connection = ConnectionBuilder
+		const connection = ConnectionBuilder
 			.new({
 				applicationId: getEnvironmentVariable("APPLICATION_ID"),
 				discordToken: getEnvironmentVariable("DISCORD_TOKEN"),
@@ -41,6 +33,7 @@ describe("FullTest", () => {
 			.addDispatchEventHandler(EventName.Ready, payload => {
 				try {
 					expect(payload.d?.user.id).toBeDefined();
+
 					resolve();
 				} catch (error) {
 					reject(error);
@@ -50,7 +43,10 @@ describe("FullTest", () => {
 			})
 			.build();
 
-		await connection.startAsync();
+		void connection.startAsync();
+
 		await assertion;
+
+		await connection.stopAsync();
 	}, 5000);
 });
