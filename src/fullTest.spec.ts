@@ -30,6 +30,7 @@ describe("FullTest", () => {
 				discordToken: getEnvironmentVariable("DISCORD_TOKEN"),
 				publicKey: getEnvironmentVariable("PUBLIC_KEY")
 			})
+			.withNoReconnectStrategy()
 			.addDispatchEventHandler(EventName.Ready, payload => {
 				try {
 					expect(payload.d?.user.id).toBeDefined();

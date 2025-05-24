@@ -11,17 +11,21 @@ import {DispatchOperationHandlerFunction} from "./dispatchOperationHandlerFuncti
 import {DispatchOperationHandler} from "./dispatchOperationHandler";
 import {SimpleDispatchHandler} from "./simpleDispatchHandler";
 import {DispatchHandlerWrapper} from "./dispatchHandlerWrapper";
+import {BackoffStrategy} from "./backoff";
+import {FixedBackoffStrategy} from "./backoff/fixedBackoffStrategy";
 
 export class ConnectionBuilder {
 	private readonly handlers: OperationHandler<any>[];
 	private readonly dispatchHandlers: DispatchOperationHandler<any>[];
 	private desiredIntents: Intent;
 	private readonly identifyConnectionProperties: IdentifyConnectionProperties;
+	private backoffStrategy: BackoffStrategy;
 
 	private constructor(private readonly secrets: Secrets) {
 		this.handlers = [...builtInHandlers];
 		this.dispatchHandlers = [];
 		this.desiredIntents = Intent.NONE;
+		this.backoffStrategy = new FixedBackoffStrategy(10);
 
 		this.identifyConnectionProperties = <IdentifyConnectionProperties>{
 			browser: "unknown",
@@ -72,6 +76,36 @@ export class ConnectionBuilder {
 
 	public withDeviceReportedAs(device: string): ConnectionBuilder {
 		this.identifyConnectionProperties.device = device;
+
+		return this;
+	}
+
+	public withFixedBackoffStrategy(delayInMilliseconds: number,
+	                                maximumAttempts?: number): ConnectionBuilder {
+		this.backoffStrategy = new FixedBackoffStrategy(delayInMilliseconds, maximumAttempts);
+
+		return this;
+	}
+
+	public withExponentialBackoffStrategy(baseDelay?: number,
+	                                      maximumDelay?: number,
+	                                      maximumAttempts?: number): ConnectionBuilder {
+		this.backoffStrategy = new ExponentialBackoffStrategy(baseDelay, maximumDelay, maximumAttempts);
+
+		return this;
+	}
+
+	public withJitterBackoffStrategy(baseDelay?: number,
+	                                 maximumDelay?: number,
+	                                 jitterFactor?: number,
+	                                 maximumAttempts?: number): ConnectionBuilder {
+		this.backoffStrategy = new JitterBackoffStrategy(baseDelay, maximumDelay, jitterFactor, maximumAttempts);
+
+		return this;
+	}
+
+	public withNoReconnectStrategy(): ConnectionBuilder {
+		this.backoffStrategy = new NoReconnectBackoffStrategy();
 
 		return this;
 	}
