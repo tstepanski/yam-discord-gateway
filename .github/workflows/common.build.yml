@@ -55,6 +55,10 @@ jobs:
 
       - name: "Test"
         run: "npm test"
+        env:
+          APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
 
       - name: "Release"
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
