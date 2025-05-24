@@ -41,6 +41,10 @@ export class AbstractHeartbeatHandler<TData> implements InternalOperationHandler
 			const intervalWithJitter = connection.heartbeatInterval.totalMilliseconds * Math.random();
 
 			setTimeout(() => {
+				if (!connection.isConnected) {
+					return;
+				}
+
 				connection
 					.sendAsync(outgoingPayload)
 					.then(() => resolve())

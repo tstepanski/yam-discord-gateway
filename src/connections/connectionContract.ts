@@ -1,4 +1,5 @@
 import {GatewayEventPayload} from "../types";
+import {ConnectionStateChangedCallback} from "./connectionStateChangedCallback";
 
 export interface ConnectionContract {
 	/**
@@ -12,4 +13,8 @@ export interface ConnectionContract {
 	stopAsync(): Promise<void>;
 
 	get isConnected(): boolean;
+
+	addConnectionStateChangeListener(callback: ConnectionStateChangedCallback): void;
+
+	removeConnectionStateChangeListener(callback: ConnectionStateChangedCallback): void;
 }

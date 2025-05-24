@@ -6,12 +6,14 @@ import {doNothing, Reject, Resolve, Timespan, toLookup} from "../types/general";
 import {Identify, IdentifyConnectionProperties, Intent} from "../types/payloads";
 import {BackoffStrategy} from "./backoff";
 import {FakeAbortSignal} from "../types/general/fakeAbortSignal";
+import {ConnectionStateChangedCallback} from "./connectionStateChangedCallback";
 
 export class Connection implements ConnectionContract {
 	public heartbeatInterval: Timespan;
 	public sequenceNumber: number | undefined;
 
 	private readonly handlersByOpCode: Record<number, OperationHandler<any>[] | undefined>;
+	private readonly stateChangeListeners: Set<ConnectionStateChangedCallback>;
 
 	private websocket: WebSocket | undefined = undefined;
 	private closeRequested: boolean = false;
@@ -28,10 +30,19 @@ export class Connection implements ConnectionContract {
 		this.sequenceNumber = undefined;
 		this.heartbeatInterval = Timespan.fromSeconds(1);
 		this.handlersByOpCode = toLookup(handlers, handler => handler.opCode.code);
+		this.stateChangeListeners = new Set<ConnectionStateChangedCallback>();
 	}
 
 	public get isConnected(): boolean {
 		return this.websocket?.readyState === WebSocket.OPEN;
+	}
+
+	public addConnectionStateChangeListener(callback: (state: boolean) => Promise<void>): void {
+		this.stateChangeListeners.add(callback);
+	}
+
+	public removeConnectionStateChangeListener(callback: (state: boolean) => Promise<void>): void {
+		this.stateChangeListeners.delete(callback);
 	}
 
 	public sendAsync<T>(payload: GatewayEventPayload<T>): Promise<void> {
@@ -85,6 +96,8 @@ export class Connection implements ConnectionContract {
 		}
 
 		this.websocket = undefined;
+
+		await this.notifyStateChangeAsync(false);
 	}
 
 	public sendIdentificationAsync(): Promise<void> {
@@ -100,6 +113,14 @@ export class Connection implements ConnectionContract {
 				properties: this.identifyConnectionProperties
 			}
 		});
+	}
+
+	private async notifyStateChangeAsync(state: boolean): Promise<void> {
+		const tasks = this.stateChangeListeners
+			.keys()
+			.map(callback => callback(state));
+
+		await Promise.all(tasks);
 	}
 
 	private async notifyHandlersAsync(eventPayload: GatewayEventPayload<any>): Promise<void> {
@@ -163,16 +184,19 @@ export class Connection implements ConnectionContract {
 			const {reject, resolve} = Connection.createWrappedCallbacks(givenResolve, givenReject);
 
 			this.websocket = new WebSocket(`${gateway.url}?v=10&encoding=json`);
+			this.websocket.onopen = () => this.notifyStateChangeAsync(true);
 			this.websocket.onmessage = event => this.onWebSocketMessageReceivedAsync(event, reject);
 			this.websocket.onclose = event => this.onWebSocketClose(event, resolve, reject);
 		});
 	}
 
-	private onWebSocketClose(event: CloseEvent, resolve: Resolve, reject: Reject): void {
+	private onWebSocketClose(event: CloseEvent, resolve: Resolve, reject: Reject): Promise<void> {
 		try {
 			const reconnect = this.getIfShouldReconnect(event);
 
 			this.websocket = undefined;
+
+			await this.notifyStateChangeAsync(false);
 
 			resolve(reconnect);
 		} catch (exception: unknown) {
