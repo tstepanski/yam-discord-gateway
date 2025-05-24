@@ -48,14 +48,18 @@ export class Connection implements ConnectionContract {
 	}
 
 	public async stopAsync(): Promise<void> {
-		if (!this.websocket) {
+		let websocket: WebSocket | undefined = this.websocket;
+
+		if (!websocket) {
 			throw new Error("Connection is not started");
 		}
 
 		this.closeRequested = true;
 		this.sentIntents = false;
 
-		this.websocket.close();
+		if (websocket.readyState !== WebSocket.CLOSED) {
+			await Connection.closeAsync(websocket);
+		}
 
 		this.websocket = undefined;
 	}
@@ -151,6 +155,22 @@ export class Connection implements ConnectionContract {
 					reject(exception);
 				}
 			};
+		});
+	}
+
+	private static closeAsync(websocket: WebSocket): Promise<void> {
+		return new Promise<void>(resolve => {
+			const handleClose = () => {
+				websocket.removeEventListener("close", handleClose);
+
+				resolve();
+			};
+
+			websocket.addEventListener("close", handleClose);
+
+			if (websocket.readyState === WebSocket.OPEN || websocket.readyState === WebSocket.CONNECTING) {
+				websocket.close();
+			}
 		});
 	}
 }
