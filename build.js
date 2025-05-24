@@ -14,4 +14,15 @@ const execAsync = (command) =>
 		}));
 
 await execAsync("tsc");
-await fileSystem.copyFile("package.json", "./dist/package.json");
+
+const fieldsToRemove = ["devDependencies", "private", "scripts", "release"];
+let packageJson = await fileSystem.readFile("package.json", {encoding: "utf-8"});
+const packageStructure = JSON.parse(packageJson);
+
+for (const fieldToRemove of fieldsToRemove) {
+	delete packageStructure[fieldToRemove];
+}
+
+packageJson = JSON.stringify(packageStructure, null, 2);
+
+await fileSystem.writeFile("./dist/package.json", packageJson);
