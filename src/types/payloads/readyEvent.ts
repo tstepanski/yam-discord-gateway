@@ -1,6 +1,6 @@
 import {User} from "../users";
-import {UnavailableGuild} from "./unavailableGuild";
-import {Application} from "./application";
+import {UnavailableGuild} from "../guilds";
+import {Application} from "../application";
 import {ApiVersion} from "../general";
 
 /**

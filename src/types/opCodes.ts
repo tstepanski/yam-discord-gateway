@@ -6,12 +6,12 @@ import {
 	Identify,
 	InvalidSession,
 	Reconnect,
-	RequestGuildMembers,
 	RequestSoundboardSounds,
 	Resume,
 	UpdateVoiceState
 } from "./payloads";
 import {UnknownEventCodeError} from "./exceptions";
+import {RequestMembers} from "./guilds";
 
 /**
  * All gateway events in Discord are tagged with an opcode that denotes the payload type. Your connection to our
@@ -66,7 +66,7 @@ export class OpCodes {
 	/**
 	 * Request information about offline guild members in a large guild.
 	 */
-	public static readonly RequestGuildMembers: OpCode<RequestGuildMembers> =
+	public static readonly RequestGuildMembers: OpCode<RequestMembers> =
 		Object.seal({code: 8, client: true, gateway: false});
 
 	/**

@@ -49,6 +49,7 @@ import {TriggerType} from "./triggerType";
  *
  *
  * @see [Auto Moderation Trigger Metadata](https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object-trigger-metadata)
+ *
  * @interface
  */
 export interface TriggerMetadata {

@@ -19,13 +19,14 @@ import {Activity} from "./activity";
  * }
  *
  * @see [Gateway Presence Update Structure](https://discord.com/developers/docs/events/gateway-events#update-presence-gateway-presence-update-structure)
+ *
  * @interface
  */
 export interface GatewayPresenceUpdate {
 	/**
 	 * Unix time (in milliseconds) of when the client went idle, or null if the client is not idle
 	 */
-	since?: number;
+	since: number | null;
 
 	/**
 	 * User's activities

@@ -54,14 +54,14 @@ export interface User {
 	 *
 	 * @remarks requires identify OAuth2 Scope
 	 */
-	global_name?: string;
+	global_name?: string | null;
 
 	/**
 	 * the user's [avatar hash](https://discord.com/developers/docs/reference#image-formatting)
 	 *
 	 * @remarks requires identify OAuth2 Scope
 	 */
-	avatar?: string;
+	avatar?: string | null;
 
 	/**
 	 * whether the user belongs to an OAuth2 application
@@ -89,14 +89,14 @@ export interface User {
 	 *
 	 * @remarks requires identify OAuth2 Scope
 	 */
-	banner?: string;
+	banner?: string | null;
 
 	/**
 	 * the user's banner color encoded as an integer representation of hexadecimal color code
 	 *
 	 * @remarks requires identify OAuth2 Scope
 	 */
-	accent_color?: number;
+	accent_color?: number | null;
 
 	/**
 	 * the user's chosen language option
@@ -117,7 +117,7 @@ export interface User {
 	 *
 	 * @remarks requires email OAuth2 Scope
 	 */
-	email?: string;
+	email?: string | null;
 
 	/**
 	 * the {@link Flag flags} on a user's account
@@ -145,5 +145,5 @@ export interface User {
 	 *
 	 * @remarks requires identify OAuth2 Scope
 	 */
-	avatar_decoration_data?: AvatarDecorationData;
+	avatar_decoration_data?: AvatarDecorationData | null;
 }

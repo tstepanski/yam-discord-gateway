@@ -1,6 +1,6 @@
 import {Guild} from "./guild";
 
-export interface GuildCreateEvent extends Guild {
+export interface createEvent extends Guild {
 	// TODO: fill out
 }
 

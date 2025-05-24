@@ -37,5 +37,5 @@ export interface ThreadMetadata {
 	/**
 	 * timestamp when the thread was created; only populated for threads created after 2022-01-09
 	 */
-	create_timestamp?: string; // TODO: setup datetime parsing
+	create_timestamp?: string | null; // TODO: setup datetime parsing
 }

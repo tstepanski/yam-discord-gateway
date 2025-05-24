@@ -1,5 +1,5 @@
 import {Snowflake} from "../general";
-import {ApplicationCommandPermissionType} from "./applicationCommandPermissionType";
+import {PermissionType} from "./permissionType";
 
 /**
  * Application command permissions allow you to enable or disable commands for specific users, roles, or channels within
@@ -7,7 +7,7 @@ import {ApplicationCommandPermissionType} from "./applicationCommandPermissionTy
  *
  * @see [Application Command Permissions Structure](https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-application-command-permissions-structure)
  */
-export interface ApplicationCommandPermission {
+export interface Permission {
 	/**
 	 * ID of the role, user, or channel. It can also be a permission constant
 	 */
@@ -16,7 +16,7 @@ export interface ApplicationCommandPermission {
 	/**
 	 * role (1), user (2), or channel (3)
 	 */
-	type: ApplicationCommandPermissionType;
+	type: PermissionType;
 
 	/**
 	 * true to allow, false, to disallow

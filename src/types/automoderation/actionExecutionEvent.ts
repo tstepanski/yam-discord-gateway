@@ -69,7 +69,7 @@ export interface ActionExecutionEvent<TTriggerType extends TriggerType, TActionT
 	/**
 	 * Word or phrase configured in the rule that triggered the rule
 	 */
-	matched_keyword?: string;
+	matched_keyword?: string | null;
 
 	/**
 	 * Substring in content that triggered the rule
@@ -78,5 +78,5 @@ export interface ActionExecutionEvent<TTriggerType extends TriggerType, TActionT
 	 * [gateway intent](https://discord.com/developers/docs/events/gateway#gateway-intents) is required to receive the
 	 * content and matched_content fields
 	 */
-	matched_content?: string;
+	matched_content?: string | null;
 }
