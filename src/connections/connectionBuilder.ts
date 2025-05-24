@@ -13,6 +13,9 @@ import {SimpleDispatchHandler} from "./simpleDispatchHandler";
 import {DispatchHandlerWrapper} from "./dispatchHandlerWrapper";
 import {BackoffStrategy} from "./backoff";
 import {FixedBackoffStrategy} from "./backoff/fixedBackoffStrategy";
+import {ExponentialBackoffStrategy} from "./backoff/exponentialBackoffStrategy";
+import {JitterBackoffStrategy} from "./backoff/jitterBackoffStrategy";
+import {NoReconnectBackoffStrategy} from "./backoff/noReconnectBackoffStrategy";
 
 export class ConnectionBuilder {
 	private readonly handlers: OperationHandler<any>[];
