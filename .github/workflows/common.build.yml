@@ -43,6 +43,13 @@ jobs:
       - name: "Restore"
         run: "npm install"
 
+      - name: "Test"
+        run: "npm test"
+        env:
+          APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+
       - name: "Build"
         run: "npm run build"
 
@@ -52,13 +59,6 @@ jobs:
           name: "built-package"
           path: "./dist"
           retention-days: 2
-
-      - name: "Test"
-        run: "npm test"
-        env:
-          APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
 
       - name: "Release"
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
