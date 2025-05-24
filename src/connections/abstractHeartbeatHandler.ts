@@ -2,7 +2,7 @@ import {InternalOperationHandler} from "./internalOperationHandler";
 import {Connection} from "./connection";
 import {GatewayEventPayload, OpCode, OpCodes} from "../types";
 import {Heartbeat} from "../types/payloads";
-import {Reject, Resolve} from "../types/general";
+import {doNothing, Reject, Resolve} from "../types/general";
 import {ConnectionStateChangedCallback} from "./connectionStateChangedCallback";
 
 export class AbstractHeartbeatHandler<TData> implements InternalOperationHandler<TData, Connection> {
@@ -39,8 +39,8 @@ export class AbstractHeartbeatHandler<TData> implements InternalOperationHandler
 	}
 
 	private sendDelayed(connection: Connection, outgoingPayload: GatewayEventPayload<Heartbeat | null>): Promise<void> {
-		let resolve: Resolve;
-		let reject: Reject;
+		let resolve: Resolve = doNothing;
+		let reject: Reject = doNothing;
 
 		const promise = new Promise<void>((givenResolve, givenReject) => {
 			resolve = givenResolve;
