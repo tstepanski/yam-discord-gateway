@@ -1,1 +1,1 @@
-export type Resolve = (() => void) | ((value: any) => void);
+export type Resolve = (value?: any | PromiseLike<any>) => void;
