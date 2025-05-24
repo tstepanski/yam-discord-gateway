@@ -11,6 +11,7 @@ import {DefaultReaction} from "./defaultReaction";
 import {SortOrderType} from "./sortOrderType";
 import {ForumLayoutType} from "./forumLayoutType";
 import {ThreadMember} from "./threadMember";
+import {Region} from "../voice";
 
 /**
  * Represents a guild or DM channel within Discord.
@@ -123,7 +124,7 @@ export interface Channel {
 	/**
 	 * {@link Region voice region} id for the voice channel, automatic when set to null
 	 */
-	rtc_region?: string | null;
+	rtc_region?: Region | null;
 
 	/**
 	 * the camera {@link VideoQualityMode video quality mode} of the voice channel, 1 when not present
