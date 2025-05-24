@@ -46,8 +46,8 @@ describe("FullTest", () => {
 
 		void connection.startAsync();
 
-		await assertion;
-
 		await connection.stopAsync();
+
+		await assertion;
 	}, 5000);
 });
