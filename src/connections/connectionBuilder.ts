@@ -114,6 +114,6 @@ export class ConnectionBuilder {
 		const dispatchHandlerWrapper = new DispatchHandlerWrapper(this.dispatchHandlers);
 
 		return new Connection([...this.handlers, dispatchHandlerWrapper], this.desiredIntents,
-			this.identifyConnectionProperties, this.secrets);
+			this.identifyConnectionProperties, this.secrets, this.backoffStrategy);
 	}
 }
