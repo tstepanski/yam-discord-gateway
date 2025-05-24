@@ -4,7 +4,6 @@ import {toLookup} from "../types/general";
 import {TEvent} from "../types/payloads";
 import {DispatchOperationHandler} from "./dispatchOperationHandler";
 import {OperationHandler} from "./operationHandler";
-import {SimpleDispatchHandler} from "./simpleDispatchHandler";
 
 export class DispatchHandlerWrapper implements OperationHandler<any> {
 	private readonly dispatchHandlersByEventName: Record<TEvent, DispatchOperationHandler<any>[] | undefined>;
@@ -23,12 +22,8 @@ export class DispatchHandlerWrapper implements OperationHandler<any> {
 
 		const tasks = handlers.map(async handler => {
 			const label = handler.constructor.name || "UnnamedDispatchHandler";
-			const simpleDispatchHandler: SimpleDispatchHandler<any> = handler as SimpleDispatchHandler<any>;
-
-			console.time(`DispatchHandler ${label} - ${simpleDispatchHandler.event} | ${simpleDispatchHandler.opCode}`);
-
+			console.time(`DispatchHandler ${label}`);
 			await handler.handleAsync(dispatchPayload, connection);
-
 			console.timeEnd(`DispatchHandler ${label}`);
 		});
 
