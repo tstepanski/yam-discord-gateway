@@ -1,9 +1,10 @@
 import {ConnectionBuilder, ConnectionContract} from "./index";
 import {EventName} from "./types/payloads";
 
-describe("FullTest", () => {
-	let connection: ConnectionContract | undefined = undefined;
+type Resolve = (value: (void | PromiseLike<void>)) => void;
+type Reject = (reason?: any) => void;
 
+describe("FullTest", () => {
 	function getEnvironmentVariable(name: string): string {
 		const value = process.env[name];
 
@@ -14,35 +15,43 @@ describe("FullTest", () => {
 		throw new Error(`Environment variable ${name} is not set`);
 	}
 
-	afterEach(async () => {
-		if (connection) {
-			await connection.stopAsync();
-		}
-	});
+	async function createTest(
+		builderSetup: (connectionBuilder: ConnectionBuilder, resolve: Resolve, reject: Reject) => ConnectionBuilder):
+		Promise<void> {
+		let connection: ConnectionContract | undefined;
 
-	it("should receive basic events", () => {
-		return new Promise<void>((resolve, reject) => {
-			connection = ConnectionBuilder
-				.new({
+		try {
+			await new Promise<void>(async (resolve, reject) => {
+				let connectionBuilder = ConnectionBuilder.new({
 					applicationId: getEnvironmentVariable("APPLICATION_ID"),
 					discordToken: getEnvironmentVariable("DISCORD_TOKEN"),
 					publicKey: getEnvironmentVariable("PUBLIC_KEY")
-				})
-				.addDispatchEventHandler(EventName.Ready, payload => {
-					try {
-						expect(payload.d?.user.id).toBeDefined();
-						resolve();
-					} catch (error: unknown) {
-						reject(error);
-					}
+				});
 
-					return Promise.resolve();
-				})
-				.build();
+				connectionBuilder = builderSetup(connectionBuilder, resolve, reject);
 
-			connection
-				.startAsync()
-				.catch(reject);
-		});
+				connection = connectionBuilder.build();
+
+				await connection.startAsync();
+			});
+		} finally {
+			if (connection) {
+				await connection.stopAsync();
+			}
+		}
+	}
+
+	it("should receive basic events", () => {
+		return createTest((connectionBuilder, resolve, reject) =>
+			connectionBuilder.addDispatchEventHandler(EventName.Ready, payload => {
+				try {
+					expect(payload.d?.user.id).toBeDefined();
+					resolve();
+				} catch (error: unknown) {
+					reject(error);
+				}
+
+				return Promise.resolve();
+			}));
 	}, 5000);
 });
