@@ -33,15 +33,23 @@
 		  "preset": "angular",
 		  "releaseRules": [
 			{
-			  "type": "docs",
-			  "release": "patch"
-			},
-			{
-			  "type": "refactor",
+			  "type": "build",
 			  "release": "patch"
 			},
 			{
 			  "type": "ci",
+			  "release": "patch"
+			},
+			{
+			  "type": "docs",
+			  "release": "patch"
+			},
+			{
+			  "type": "feat",
+			  "release": "minor"
+			},
+			{
+			  "type": "refactor",
 			  "release": "patch"
 			}
 		  ],
