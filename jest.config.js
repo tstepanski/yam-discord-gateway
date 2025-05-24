@@ -1,6 +1,9 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} **/
 
 export default {
+	modulePathIgnorePatterns: [
+		"<rootDir>/dist/"
+	],
 	testEnvironment: "node",
 	transform: {
 		"^.+\.ts?$": [
@@ -8,7 +11,10 @@ export default {
 			{}
 		]
 	},
-  transformIgnorePatterns: [
-    "node_modules/(?!.*\\.ts$)"
-  ]
+	testPathIgnorePatterns: [
+		"<rootDir>/dist/"
+	],
+	transformIgnorePatterns: [
+		"node_modules/(?!.*\\.ts$)"
+	]
 };

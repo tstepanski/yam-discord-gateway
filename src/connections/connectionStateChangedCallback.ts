@@ -1,0 +1,1 @@
+export type ConnectionStateChangedCallback = (state: boolean) => Promise<void>;
