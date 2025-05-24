@@ -190,7 +190,7 @@ export class Connection implements ConnectionContract {
 		});
 	}
 
-	private onWebSocketClose(event: CloseEvent, resolve: Resolve, reject: Reject): Promise<void> {
+	private async onWebSocketClose(event: CloseEvent, resolve: Resolve, reject: Reject): Promise<void> {
 		try {
 			const reconnect = this.getIfShouldReconnect(event);
 
