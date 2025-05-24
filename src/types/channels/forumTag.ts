@@ -29,14 +29,14 @@ export interface ForumTag {
 	 *
 	 * @remarks At most one of {@link emoji_id} and {@link emoji_name} may be set to a non-null value.
 	 */
-	emoji_id?: Snowflake;
+	emoji_id: Snowflake | null;
 
 	/**
 	 * the Unicode character of the emoji
 	 *
 	 * @remarks At most one of {@link emoji_id} and {@link emoji_name} may be set to a non-null value.
 	 */
-	emoji_name?: string;
+	emoji_name: string | null;
 }
 
 /**

@@ -1,6 +1,4 @@
 export * from "./activity";
-export * from "./application";
-export * from "./applicationFlag";
 export * from "./eventName";
 export * from "./eventTypeMap";
 export * from "./gatewayPresenceStatus";
@@ -14,9 +12,6 @@ export * from "./intent";
 export * from "./invalidSession";
 export * from "./readyEvent";
 export * from "./reconnect";
-export * from "./requestGuildMembers";
 export * from "./requestSoundboardSounds";
 export * from "./resume";
-export * from "./threadMembersUpdateEvent";
-export * from "./unavailableGuild";
 export * from "./updateVoiceState";

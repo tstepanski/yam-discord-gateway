@@ -1,12 +1,12 @@
 import {Snowflake} from "../general";
-import {ApplicationCommandPermission} from "./applicationCommandPermission";
+import {Permission} from "./permission";
 
 /**
  * Returned when fetching the permissions for an app's command(s) in a guild.
  *
  * @see [Guild Application Command Permissions Structure](https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure)
  */
-export interface GuildApplicationCommandPermissions {
+export interface GuildPermissions {
 	/**
 	 * ID of the command or the application ID
 	 */
@@ -25,5 +25,5 @@ export interface GuildApplicationCommandPermissions {
 	/**
 	 * Permissions for the command in the guild, max of 100
 	 */
-	permissions:  ApplicationCommandPermission[];
+	permissions:  Permission[];
 }

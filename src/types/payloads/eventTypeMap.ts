@@ -2,8 +2,10 @@ import {EventName} from "./eventName";
 import {Hello} from "./hello";
 import {ReadyEvent} from "./readyEvent";
 import {ActionExecutionEvent, Rule} from "../automoderation";
-import {GuildApplicationCommandPermissions} from "./guildApplicationCommandPermissions";
+import {GuildPermissions} from "../applicationCommands";
 import {Channel} from "../channels";
+import {ListSyncEvent, MembersUpdate, MemberUpdate} from "../threads";
+import {Entitlement} from "../entitlements";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -21,7 +23,7 @@ export interface EventTypeMap {
 
 	[EventName.InvalidSession]: boolean;
 
-	[EventName.ApplicationCommandPermissionsUpdate]: GuildApplicationCommandPermissions;
+	[EventName.ApplicationCommandPermissionsUpdate]: GuildPermissions;
 
 	[EventName.AutoModerationRuleCreate]: Rule<any>;
 
@@ -42,6 +44,16 @@ export interface EventTypeMap {
 	[EventName.ThreadUpdate]: Channel;
 
 	[EventName.ThreadDelete]: Pick<Channel, "id" | "guild_id" | "parent_id" | "type">;
+
+	[EventName.ThreadListSync]: ListSyncEvent;
+
+	[EventName.ThreadMemberUpdate]: MemberUpdate;
+
+	[EventName.ThreadMembersUpdate]: MembersUpdate;
+
+	[EventName.EntitlementCreate]: Entitlement;
+
+	[EventName.EntitlementUpdate]: Entitlement;
 }
 
 export type TEvent = EventName & keyof EventTypeMap;

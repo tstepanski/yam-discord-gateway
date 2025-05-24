@@ -15,6 +15,7 @@ import {Snowflake} from "../general";
  * }
  *
  * @see [Gateway Voice State Update Structure](https://discord.com/developers/docs/events/gateway-events#update-voice-state-gateway-voice-state-update-structure)
+ *
  * @interface
  */
 export interface UpdateVoiceState {
@@ -26,7 +27,7 @@ export interface UpdateVoiceState {
 	/**
 	 * ID of the voice channel client wants to join (null if disconnecting)
 	 */
-	channel_id?: Snowflake;
+	channel_id: Snowflake | null;
 
 	/**
 	 * Whether the client is muted

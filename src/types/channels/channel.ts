@@ -10,9 +10,8 @@ import {ForumTag} from "./forumTag";
 import {DefaultReaction} from "./defaultReaction";
 import {SortOrderType} from "./sortOrderType";
 import {ForumLayoutType} from "./forumLayoutType";
-import {EventName} from "../payloads";
-import {Region} from "../voice";
 import {ThreadMember} from "./threadMember";
+import {Region} from "../voice";
 
 /**
  * Represents a guild or DM channel within Discord.
@@ -50,13 +49,13 @@ export interface Channel {
 	/**
 	 * the name of the channel (1-100 characters)
 	 */
-	name?: string;
+	name?: string | null;
 
 	/**
 	 * the channel topic (0-4096 characters for {@link ChannelType.GUILD_FORUM GUILD_FORUM} and
 	 * {@link ChannelType.GUILD_MEDIA GUILD_MEDIA} channels, 0-1024 characters for all others)
 	 */
-	topic?: string;
+	topic?: string | null;
 
 	/**
 	 * whether the channel is nsfw
@@ -67,7 +66,7 @@ export interface Channel {
 	 * the id of the last message sent in this channel (or thread for {@link ChannelType.GUILD_FORUM GUILD_FORUM} or
 	 * {@link ChannelType.GUILD_MEDIA GUILD_MEDIA} channels) (may not point to an existing or valid message or thread)
 	 */
-	last_message_id?: Snowflake;
+	last_message_id?: Snowflake | null;
 
 	/**
 	 * the bitrate (in bits) of the voice channel
@@ -93,7 +92,7 @@ export interface Channel {
 	/**
 	 * icon hash of the group DM
 	 */
-	icon?: string;
+	icon?: string | null;
 
 	/**
 	 * id of the creator of the group DM or thread
@@ -114,18 +113,18 @@ export interface Channel {
 	 * for guild channels: id of the parent category for a channel (each parent category can contain up to 50 channels),
 	 * for threads: id of the text channel this thread was created
 	 */
-	parent_id?: Snowflake;
+	parent_id?: Snowflake | null;
 
 	/**
 	 * when the last pinned message was pinned. This may be null in events such as
 	 * {@link EventName.GuildCreate GUILD_CREATE} when a message is not pinned.
 	 */
-	last_pin_timestamp?: string; // TODO: setup datetime parsing
+	last_pin_timestamp?: string | null; // TODO: setup datetime parsing
 
 	/**
 	 * {@link Region voice region} id for the voice channel, automatic when set to null
 	 */
-	rtc_region?: string;
+	rtc_region?: Region | null;
 
 	/**
 	 * the camera {@link VideoQualityMode video quality mode} of the voice channel, 1 when not present
@@ -195,7 +194,7 @@ export interface Channel {
 	 * the emoji to show in the add reaction button on a thread in a {@link ChannelType.GUILD_FORUM GUILD_FORUM} or
 	 * a {@link ChannelType.GUILD_MEDIA GUILD_MEDIA} channel
 	 */
-	default_reaction_emoji?: DefaultReaction;
+	default_reaction_emoji?: DefaultReaction | null;
 
 	/**
 	 * the initial {@link rate_limit_per_user} to set on newly created threads in a channel. this field is copied to the
@@ -208,7 +207,7 @@ export interface Channel {
 	 * 	{@link ChannelType.GUILD_FORUM GUILD_FORUM} and {@link ChannelType.GUILD_MEDIA GUILD_MEDIA} channels. Defaults
 	 * 	to null, which indicates a preferred sort order hasn't been set by a channel admin
 	 */
-	default_sort_order?: SortOrderType;
+	default_sort_order?: SortOrderType | null;
 
 	/**
 	 * the {@link ForumLayoutType default forum layout view} used to display posts in

@@ -1,3 +1,5 @@
+import {Entitlement} from "../entitlements";
+
 /**
  * Receive events are Gateway events encapsulated in an {@link GatewayEventPayload event payload}, and are sent by
  * Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server
@@ -113,11 +115,20 @@ export enum EventName {
 
   /**
    * Entitlement was updated or renewed
+   *
+   * For subscription entitlements, this event is triggered only when a user's subscription ends, providing an
+   * {@link Entitlement.ends_at} timestamp that indicates the end of the entitlement.
    */
   EntitlementUpdate = "ENTITLEMENT_UPDATE",
 
   /**
    * Entitlement was deleted
+   *
+   * @remarks Entitlement deletions are infrequent, and occur when:
+   *  * Discord issues a refund for a subscription
+   *  * Discord removes an entitlement from a user via internal tooling
+   *  * Discord deletes an app-managed entitlement they created via the API
+   *  Entitlements are not deleted when they expire.
    */
   EntitlementDelete = "ENTITLEMENT_DELETE",
 

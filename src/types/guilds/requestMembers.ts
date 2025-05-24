@@ -31,9 +31,10 @@ import {Snowflake} from "../general";
  * }
  *
  * @see [Request Guild Members Structure](https://discord.com/developers/docs/events/gateway-events#request-guild-members-request-guild-members-structure)
+ *
  * @interface
  */
-export interface RequestGuildMembers {
+export interface RequestMembers {
 	/**
 	 * ID of the guild to get members for
 	 */

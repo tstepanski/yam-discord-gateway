@@ -11,6 +11,7 @@ import {Snowflake} from "../general";
  * }
  *
  * @see [Unavailable Guild Object](https://discord.com/developers/docs/resources/guild#unavailable-guild-object)
+ *
  * @interface
  */
 export interface UnavailableGuild {
