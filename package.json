@@ -23,9 +23,6 @@
   },
   "module": "index.js",
   "release": {
-	"branches": [
-	  "main"
-	],
 	"plugins": [
 	  [
 		"@semantic-release/commit-analyzer",
