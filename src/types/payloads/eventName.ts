@@ -1,5 +1,3 @@
-import {Entitlement} from "../entitlements";
-
 /**
  * Receive events are Gateway events encapsulated in an {@link GatewayEventPayload event payload}, and are sent by
  * Discord to an app through a Gateway connection. Receive events correspond to events that happen in a Discord server
