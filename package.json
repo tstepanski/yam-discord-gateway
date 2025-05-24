@@ -64,7 +64,8 @@
 		{
 		  "pkgRoot": "./dist"
 		}
-	  ]
+	  ],
+	  "@semantic-release/github"
 	]
   },
   "repository": {

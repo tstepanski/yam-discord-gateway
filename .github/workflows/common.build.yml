@@ -2,11 +2,13 @@ name: "Build Library"
 
 on:
   push:
-    branches:
-      - main
+  pull_request:
 
 permissions:
-  contents: read
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
 
 jobs:
   build:
@@ -44,7 +46,18 @@ jobs:
       - name: "Build"
         run: "npm run build"
 
+      - name: "Upload Distribution"
+        uses: "actions/upload-artifact@v4"
+        with:
+          name: "built-package"
+          path: "./dist"
+          retention-days: 2
+
+      - name: "Test"
+        run: "npm test"
+
       - name: "Release"
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: "npx semantic-release"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
