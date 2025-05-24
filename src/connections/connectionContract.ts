@@ -10,4 +10,6 @@ export interface ConnectionContract {
 	sendAsync<T>(payload: GatewayEventPayload<T>): Promise<void>;
 
 	stopAsync(): Promise<void>;
+
+	get isConnected(): boolean;
 }

@@ -30,6 +30,10 @@ export class Connection implements ConnectionContract {
 		this.handlersByOpCode = toLookup(handlers, handler => handler.opCode.code);
 	}
 
+	public get isConnected(): boolean {
+		return this.websocket?.readyState === WebSocket.OPEN;
+	}
+
 	public sendAsync<T>(payload: GatewayEventPayload<T>): Promise<void> {
 		if (!this.websocket) {
 			return Promise.reject("Connection is not started");

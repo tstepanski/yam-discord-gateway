@@ -20,6 +20,10 @@ export class AbstractHeartbeatHandler<TData> implements InternalOperationHandler
 			d: connection.sequenceNumber ?? null
 		};
 
+		if (!connection.isConnected) {
+			return;
+		}
+
 		if (this.sendImmediately) {
 			await connection.sendAsync(outgoingPayload);
 		} else {
