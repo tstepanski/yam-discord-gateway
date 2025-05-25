@@ -50,28 +50,30 @@ export class AbstractHeartbeatHandler<TData> implements InternalOperationHandler
 		const intervalWithJitter = connection.heartbeatInterval.totalMilliseconds * Math.random();
 		let clearTimeoutCallback: ConnectionStateChangedCallback;
 
-		const timeoutId = setTimeout(async () => {
-			if (!connection.isConnected) {
-				return;
-			}
-
-			connection.removeConnectionStateChangeListener(clearTimeoutCallback);
-
-			connection
-				.sendAsync(outgoingPayload)
-				.then(() => resolve())
-				.catch(error => reject(error));
-		}, intervalWithJitter);
+		let timeoutId: any;
 
 		clearTimeoutCallback = (state: boolean): Promise<void> => {
 			if (!state) {
 				clearTimeout(timeoutId);
 			}
 
+			connection.removeConnectionStateChangeListener(clearTimeoutCallback);
+
 			return Promise.resolve();
 		};
 
 		connection.addConnectionStateChangeListener(clearTimeoutCallback);
+
+		timeoutId = setTimeout(() => {
+			if (!connection.isConnected) {
+				return;
+			}
+
+			connection
+				.sendAsync(outgoingPayload)
+				.then(() => resolve())
+				.catch(error => reject(error));
+		}, intervalWithJitter);
 
 		return promise;
 	}
