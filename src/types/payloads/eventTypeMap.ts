@@ -6,7 +6,7 @@ import {GuildPermissions} from "../applicationCommands";
 import {Channel} from "../channels";
 import {ListSyncEvent, MembersUpdate, MemberUpdate} from "../threads";
 import {Entitlement} from "../entitlements";
-import {Guild, GuildBan, GuildCreate, UnavailableGuild, UserRemovedFromGuild} from "../guilds";
+import {Guild, GuildBan, GuildCreate, GuildMemberAdd, UnavailableGuild, UserRemovedFromGuild} from "../guilds";
 import {GuildAuditLogEntry} from "../auditLog";
 import {GuildStickersUpdate} from "../stickers";
 import {GuildIntegrationsUpdate} from "../integrations";
@@ -78,6 +78,8 @@ export interface EventTypeMap {
 	[EventName.GuildStickersUpdate]: GuildStickersUpdate;
 
 	[EventName.GuildIntegrationsUpdate]: GuildIntegrationsUpdate;
+
+	[EventName.GuildMemberAdd]: GuildMemberAdd;
 }
 
 export type TEvent = EventName & keyof EventTypeMap;
