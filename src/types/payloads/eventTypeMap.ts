@@ -54,6 +54,8 @@ export interface EventTypeMap {
 	[EventName.EntitlementCreate]: Entitlement;
 
 	[EventName.EntitlementUpdate]: Entitlement;
+
+	[EventName.EntitlementDelete]: Entitlement;
 }
 
 export type TEvent = EventName & keyof EventTypeMap;
