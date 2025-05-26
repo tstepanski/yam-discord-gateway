@@ -7,6 +7,7 @@ export * from "./guildBan";
 export * from "./guildCreate";
 export * from "./guildMember";
 export * from "./guildMemberAdd";
+export * from "./guildMemberRemove";
 export * from "./membersChunkEvent";
 export * from "./mfaLevel";
 export * from "./nsfwLevel";
