@@ -3,6 +3,7 @@ export * from "./defaultMessageNotificationLevel";
 export * from "./explicitContentFilterLevel";
 export * from "./features";
 export * from "./guild";
+export * from "./guildBan";
 export * from "./guildCreate";
 export * from "./guildMember";
 export * from "./membersChunkEvent";
