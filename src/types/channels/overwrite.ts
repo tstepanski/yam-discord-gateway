@@ -1,10 +1,12 @@
 import {Snowflake} from "../general";
+import {Permission} from "../permissions";
+import {OverwriteType} from "./overwriteType";
 
 /**
  * See [permissions](https://discord.com/developers/docs/topics/permissions#permissions) for more information about the
- * {@link allow} and {@link deny} fields.
+ * `allow` and `deny` fields.
  *
- * @see [Overwrite Structure](https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure)
+ * @see [Channel Overwrite Object](https://discord.com/developers/docs/resources/channel#overwrite-object)
  *
  * @interface
  */
@@ -15,17 +17,17 @@ export interface Overwrite {
 	id: Snowflake;
 
 	/**
-	 * either 0 (role) or 1 (member)
+	 * to what this overwrite pertains
 	 */
-	type: 0 | 1;
+	type: OverwriteType;
 
 	/**
 	 * permission bit set
 	 */
-	allow: string;
+	allow: string | Permission; // TODO: setup parsing
 
 	/**
 	 * permission bit set
 	 */
-	deny: string;
+	deny: string | Permission; // TODO: setup parsing
 }

@@ -7,6 +7,7 @@ export * from "./flag";
 export * from "./forumLayoutType";
 export * from "./forumTag";
 export * from "./overwrite";
+export * from "./overwriteType";
 export * from "./sortOrderType";
 export * from "./threadMember";
 export * from "./threadMetadata";
