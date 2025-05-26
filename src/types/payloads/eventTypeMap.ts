@@ -8,6 +8,7 @@ import {ListSyncEvent, MembersUpdate, MemberUpdate} from "../threads";
 import {Entitlement} from "../entitlements";
 import {Guild, GuildBan, GuildCreate, UnavailableGuild, UserRemovedFromGuild} from "../guilds";
 import {GuildAuditLogEntry} from "../auditLog";
+import {GuildStickersUpdate} from "../stickers";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -72,6 +73,8 @@ export interface EventTypeMap {
 	[EventName.GuildBanAdd]: GuildBan;
 
 	[EventName.GuildBanRemove]: GuildBan;
+
+	[EventName.GuildStickersUpdate]: GuildStickersUpdate;
 }
 
 export type TEvent = EventName & keyof EventTypeMap;
