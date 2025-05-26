@@ -6,6 +6,7 @@ import {GuildPermissions} from "../applicationCommands";
 import {Channel} from "../channels";
 import {ListSyncEvent, MembersUpdate, MemberUpdate} from "../threads";
 import {Entitlement} from "../entitlements";
+import {GuildCreate} from "../guilds";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -56,6 +57,8 @@ export interface EventTypeMap {
 	[EventName.EntitlementUpdate]: Entitlement;
 
 	[EventName.EntitlementDelete]: Entitlement;
+
+	[EventName.GuildCreate]: GuildCreate;
 }
 
 export type TEvent = EventName & keyof EventTypeMap;

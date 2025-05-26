@@ -12,6 +12,4 @@ export * from "./intent";
 export * from "./invalidSession";
 export * from "./readyEvent";
 export * from "./reconnect";
-export * from "./requestSoundboardSounds";
 export * from "./resume";
-export * from "./updateVoiceState";
