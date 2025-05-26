@@ -12,4 +12,5 @@ export * from "./premiumTier";
 export * from "./requestMembers";
 export * from "./systemChannelFlags";
 export * from "./unavailableGuild";
+export * from "./userRemovedFromGuild";
 export * from "./verificationLevel";
