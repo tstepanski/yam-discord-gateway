@@ -7,6 +7,7 @@ import {Channel} from "../channels";
 import {ListSyncEvent, MembersUpdate, MemberUpdate} from "../threads";
 import {Entitlement} from "../entitlements";
 import {Guild, GuildCreate, UnavailableGuild, UserRemovedFromGuild} from "../guilds";
+import {GuildAuditLogEntry} from "../auditLog";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -65,6 +66,8 @@ export interface EventTypeMap {
 	[EventName.GuildUpdate]: Guild;
 
 	[EventName.GuildDelete]: UnavailableGuild | UserRemovedFromGuild;
+
+	[EventName.GuildAuditLogEntryCreate]: GuildAuditLogEntry<any>;
 }
 
 export type TEvent = EventName & keyof EventTypeMap;
