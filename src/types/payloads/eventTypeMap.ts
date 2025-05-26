@@ -6,12 +6,14 @@ import {GuildPermissions} from "../applicationCommands";
 import {Channel} from "../channels";
 import {ListSyncEvent, MembersUpdate, MemberUpdate} from "../threads";
 import {Entitlement} from "../entitlements";
-import {GuildCreate} from "../guilds";
+import {Guild, GuildCreate} from "../guilds";
 
 /**
  * Map of {@link EventName} to expected response payload type
  *
  * @see [Receive Events](https://discord.com/developers/docs/events/gateway-events#receive-events)
+ *
+ * @interface
  */
 export interface EventTypeMap {
 	[EventName.Hello]: Hello;
@@ -59,6 +61,8 @@ export interface EventTypeMap {
 	[EventName.EntitlementDelete]: Entitlement;
 
 	[EventName.GuildCreate]: GuildCreate;
+
+	[EventName.GuildUpdate]: Guild;
 }
 
 export type TEvent = EventName & keyof EventTypeMap;
