@@ -11,17 +11,24 @@ import {DispatchOperationHandlerFunction} from "./dispatchOperationHandlerFuncti
 import {DispatchOperationHandler} from "./dispatchOperationHandler";
 import {SimpleDispatchHandler} from "./simpleDispatchHandler";
 import {DispatchHandlerWrapper} from "./dispatchHandlerWrapper";
+import {BackoffStrategy} from "./backoff";
+import {FixedBackoffStrategy} from "./backoff/fixedBackoffStrategy";
+import {ExponentialBackoffStrategy} from "./backoff/exponentialBackoffStrategy";
+import {JitterBackoffStrategy} from "./backoff/jitterBackoffStrategy";
+import {NoReconnectBackoffStrategy} from "./backoff/noReconnectBackoffStrategy";
 
 export class ConnectionBuilder {
 	private readonly handlers: OperationHandler<any>[];
 	private readonly dispatchHandlers: DispatchOperationHandler<any>[];
 	private desiredIntents: Intent;
 	private readonly identifyConnectionProperties: IdentifyConnectionProperties;
+	private backoffStrategy: BackoffStrategy;
 
 	private constructor(private readonly secrets: Secrets) {
 		this.handlers = [...builtInHandlers];
 		this.dispatchHandlers = [];
 		this.desiredIntents = Intent.NONE;
+		this.backoffStrategy = new FixedBackoffStrategy(10);
 
 		this.identifyConnectionProperties = <IdentifyConnectionProperties>{
 			browser: "unknown",
@@ -76,10 +83,40 @@ export class ConnectionBuilder {
 		return this;
 	}
 
+	public withFixedBackoffStrategy(delayInMilliseconds: number,
+	                                maximumAttempts?: number): ConnectionBuilder {
+		this.backoffStrategy = new FixedBackoffStrategy(delayInMilliseconds, maximumAttempts);
+
+		return this;
+	}
+
+	public withExponentialBackoffStrategy(baseDelay?: number,
+	                                      maximumDelay?: number,
+	                                      maximumAttempts?: number): ConnectionBuilder {
+		this.backoffStrategy = new ExponentialBackoffStrategy(baseDelay, maximumDelay, maximumAttempts);
+
+		return this;
+	}
+
+	public withJitterBackoffStrategy(baseDelay?: number,
+	                                 maximumDelay?: number,
+	                                 jitterFactor?: number,
+	                                 maximumAttempts?: number): ConnectionBuilder {
+		this.backoffStrategy = new JitterBackoffStrategy(baseDelay, maximumDelay, jitterFactor, maximumAttempts);
+
+		return this;
+	}
+
+	public withNoReconnectStrategy(): ConnectionBuilder {
+		this.backoffStrategy = new NoReconnectBackoffStrategy();
+
+		return this;
+	}
+
 	public build(): ConnectionContract {
 		const dispatchHandlerWrapper = new DispatchHandlerWrapper(this.dispatchHandlers);
 
 		return new Connection([...this.handlers, dispatchHandlerWrapper], this.desiredIntents,
-			this.identifyConnectionProperties, this.secrets);
+			this.identifyConnectionProperties, this.secrets, this.backoffStrategy);
 	}
 }

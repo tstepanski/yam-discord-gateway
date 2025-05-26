@@ -1,6 +1,8 @@
 import {ConnectionBuilder} from "./index";
 import {EventName} from "./types/payloads";
 
+type Resolve = (value: (void | PromiseLike<void>)) => void;
+
 describe("FullTest", () => {
 	function getEnvironmentVariable(name: string): string {
 		const value = process.env[name];
@@ -12,24 +14,34 @@ describe("FullTest", () => {
 		throw new Error(`Environment variable ${name} is not set`);
 	}
 
-	it("should receive basic events", done => {
-		ConnectionBuilder
+	it("should receive basic events", async () => {
+		let resolve: Resolve;
+		let result: any;
+
+		const assertion = new Promise<void>(innerResolve => resolve = innerResolve);
+
+		const connection = ConnectionBuilder
 			.new({
 				applicationId: getEnvironmentVariable("APPLICATION_ID"),
 				discordToken: getEnvironmentVariable("DISCORD_TOKEN"),
 				publicKey: getEnvironmentVariable("PUBLIC_KEY")
 			})
+			.withNoReconnectStrategy()
 			.addDispatchEventHandler(EventName.Ready, payload => {
-				expect(payload.d?.user.id).toBeDefined();
+				result = payload.d?.user.id;
 
-				done();
+				resolve();
 
 				return Promise.resolve();
 			})
-			.build()
-			.startAsync()
-			.catch((reason: unknown) => {
-				done(reason);
-			});
-	});
+			.build();
+
+		void connection.startAsync();
+
+		await assertion;
+
+		await connection.stopAsync();
+
+		expect(result).toBeDefined();
+	}, 5000);
 });
