@@ -13,6 +13,7 @@ import {Snowflake} from "../general";
  * }
  *
  * @see [Request Soundboard Sounds Structure](https://discord.com/developers/docs/events/gateway-events#request-soundboard-sounds-request-soundboard-sounds-structure)
+ *
  * @interface
  */
 export interface RequestSoundboardSounds {
@@ -22,6 +23,3 @@ export interface RequestSoundboardSounds {
 	guild_ids: Snowflake[];
 }
 
-export interface SoundboardSoundsEvent {
-
-}
