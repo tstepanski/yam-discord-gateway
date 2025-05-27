@@ -1,6 +1,6 @@
 import {Frequency} from "./frequency";
 import {Weekday} from "./weekday";
-import {NWeekday} from "./NWeekday";
+import {NWeekday} from "./nweekday";
 import {Month} from "./month";
 
 /**

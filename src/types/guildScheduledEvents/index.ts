@@ -3,7 +3,7 @@ export * from "./entityType";
 export * from "./frequency";
 export * from "./guildScheduledEvent";
 export * from "./month";
-export * from "./NWeekday";
+export * from "./nweekday";
 export * from "./privacyLevel";
 export * from "./recurrenceRule";
 export * from "./status";

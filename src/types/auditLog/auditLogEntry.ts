@@ -1,7 +1,7 @@
 import {Change} from "./change";
 import {Event} from "./event";
 import {Snowflake} from "../general";
-import {EventOptionalEntryInformationMap} from "./eventOptionalEntryInformationMap";
+import {EventOptionalEntryInformationOrUndefined} from "./eventOptionalEntryInformationMap";
 
 /**
  * Each audit log entry represents a single administrative action (or {@link Events event}), indicated by `action_type`.
@@ -53,7 +53,7 @@ export interface AuditLogEntry<T extends Event> {
 	/**
 	 * Additional info for certain event types
 	 */
-	options?: EventOptionalEntryInformationMap<Event>;
+	options?: EventOptionalEntryInformationOrUndefined<T>;
 
 	/**
 	 * Reason for the change (1-512 characters)
