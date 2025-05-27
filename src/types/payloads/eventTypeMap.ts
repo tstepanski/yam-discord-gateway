@@ -6,11 +6,25 @@ import {GuildPermissions} from "../applicationCommands";
 import {Channel} from "../channels";
 import {ListSyncEvent, MembersUpdate, MemberUpdate} from "../threads";
 import {Entitlement} from "../entitlements";
+import {
+	Guild,
+	GuildBan,
+	GuildCreate,
+	GuildMemberAdd,
+	GuildMemberRemove,
+	UnavailableGuild,
+	UserRemovedFromGuild
+} from "../guilds";
+import {GuildAuditLogEntry} from "../auditLog";
+import {GuildStickersUpdate} from "../stickers";
+import {GuildIntegrationsUpdate} from "../integrations";
 
 /**
  * Map of {@link EventName} to expected response payload type
  *
  * @see [Receive Events](https://discord.com/developers/docs/events/gateway-events#receive-events)
+ *
+ * @interface
  */
 export interface EventTypeMap {
 	[EventName.Hello]: Hello;
@@ -54,6 +68,28 @@ export interface EventTypeMap {
 	[EventName.EntitlementCreate]: Entitlement;
 
 	[EventName.EntitlementUpdate]: Entitlement;
+
+	[EventName.EntitlementDelete]: Entitlement;
+
+	[EventName.GuildCreate]: GuildCreate;
+
+	[EventName.GuildUpdate]: Guild;
+
+	[EventName.GuildDelete]: UnavailableGuild | UserRemovedFromGuild;
+
+	[EventName.GuildAuditLogEntryCreate]: GuildAuditLogEntry<any>;
+
+	[EventName.GuildBanAdd]: GuildBan;
+
+	[EventName.GuildBanRemove]: GuildBan;
+
+	[EventName.GuildStickersUpdate]: GuildStickersUpdate;
+
+	[EventName.GuildIntegrationsUpdate]: GuildIntegrationsUpdate;
+
+	[EventName.GuildMemberAdd]: GuildMemberAdd;
+
+	[EventName.GuildMemberRemove]: GuildMemberRemove;
 }
 
 export type TEvent = EventName & keyof EventTypeMap;

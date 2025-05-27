@@ -6,12 +6,12 @@ import {
 	Identify,
 	InvalidSession,
 	Reconnect,
-	RequestSoundboardSounds,
-	Resume,
-	UpdateVoiceState
+	Resume
 } from "./payloads";
 import {UnknownEventCodeError} from "./exceptions";
 import {RequestMembers} from "./guilds";
+import {RequestSoundboardSounds} from "./soundboard";
+import {UpdateVoiceState} from "./voice";
 
 /**
  * All gateway events in Discord are tagged with an opcode that denotes the payload type. Your connection to our

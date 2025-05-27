@@ -13,7 +13,7 @@ export enum GatewayPresenceStatus {
 	/**
 	 * Do Not Disturb
 	 */
-	DND = "dnd",
+	DoNotDisturb = "dnd",
 
 	/**
 	 * AFK

@@ -107,6 +107,12 @@ export class ConnectionBuilder {
 		return this;
 	}
 
+	public withCustomBackoffStrategy(backoffStrategy: BackoffStrategy): ConnectionBuilder {
+		this.backoffStrategy = backoffStrategy;
+
+		return this;
+	}
+
 	public withNoReconnectStrategy(): ConnectionBuilder {
 		this.backoffStrategy = new NoReconnectBackoffStrategy();
 
