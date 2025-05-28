@@ -21,6 +21,7 @@ import {GuildAuditLogEntry} from "../auditLog";
 import {GuildStickersUpdate} from "../stickers";
 import {GuildIntegrationsUpdate} from "../integrations";
 import {GuildRoleCreate, GuildRoleDelete, GuildRoleUpdate} from "../permissions";
+import {GuildScheduledEvent} from "../guildScheduledEvents";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -104,7 +105,7 @@ export interface EventTypeMap {
 
 	[EventName.GuildRoleDelete]: GuildRoleDelete;
 
-	[EventName.GuildScheduledEventCreate]: unknown; // TODO: add definition
+	[EventName.GuildScheduledEventCreate]: GuildScheduledEvent;
 
 	[EventName.GuildScheduledEventUpdate]: unknown; // TODO: add definition
 
