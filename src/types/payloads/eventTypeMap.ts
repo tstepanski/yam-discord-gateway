@@ -90,6 +90,94 @@ export interface EventTypeMap {
 	[EventName.GuildMemberAdd]: GuildMemberAdd;
 
 	[EventName.GuildMemberRemove]: GuildMemberRemove;
+
+	[EventName.GuildMemberUpdate]: unknown; // TODO: add definition
+
+	[EventName.GuildMembersChunk]: unknown; // TODO: add definition
+
+	[EventName.GuildRoleCreate]: unknown; // TODO: add definition
+
+	[EventName.GuildRoleUpdate]: unknown; // TODO: add definition
+
+	[EventName.GuildRoleDelete]: unknown; // TODO: add definition
+
+	[EventName.GuildScheduledEventCreate]: unknown; // TODO: add definition
+
+	[EventName.GuildScheduledEventUpdate]: unknown; // TODO: add definition
+
+	[EventName.GuildScheduledEventDelete]: unknown; // TODO: add definition
+
+	[EventName.GuildScheduledEventUserAdd]: unknown; // TODO: add definition
+
+	[EventName.GuildScheduledEventUserRemove]: unknown; // TODO: add definition
+
+	[EventName.GuildSoundboardSoundCreate]: unknown; // TODO: add definition
+
+	[EventName.GuildSoundboardSoundUpdate]: unknown; // TODO: add definition
+
+	[EventName.GuildSoundboardSoundDelete]: unknown; // TODO: add definition
+
+	[EventName.GuildSoundboardSoundsUpdate]: unknown; // TODO: add definition
+
+	[EventName.SoundboardSounds]: unknown; // TODO: add definition
+
+	[EventName.IntegrationCreate]: unknown; // TODO: add definition
+
+	[EventName.IntegrationUpdate]: unknown; // TODO: add definition
+
+	[EventName.IntegrationDelete]: unknown; // TODO: add definition
+
+	[EventName.InteractionCreate]: unknown; // TODO: add definition
+
+	[EventName.InviteCreate]: unknown; // TODO: add definition
+
+	[EventName.InviteDelete]: unknown; // TODO: add definition
+
+	[EventName.MessageCreate]: unknown; // TODO: add definition
+
+	[EventName.MessageUpdate]: unknown; // TODO: add definition
+
+	[EventName.MessageDelete]: unknown; // TODO: add definition
+
+	[EventName.MessageDeleteBulk]: unknown; // TODO: add definition
+
+	[EventName.MessageReactionAdd]: unknown; // TODO: add definition
+
+	[EventName.MessageReactionRemove]: unknown; // TODO: add definition
+
+	[EventName.MessageReactionRemoveAll]: unknown; // TODO: add definition
+
+	[EventName.MessageReactionRemoveEmoji]: unknown; // TODO: add definition
+
+	[EventName.PresenceUpdate]: unknown; // TODO: add definition
+
+	[EventName.StageInstanceCreate]: unknown; // TODO: add definition
+
+	[EventName.StageInstanceUpdate]: unknown; // TODO: add definition
+
+	[EventName.StageInstanceDelete]: unknown; // TODO: add definition
+
+	[EventName.SubscriptionCreate]: unknown; // TODO: add definition
+
+	[EventName.SubscriptionUpdate]: unknown; // TODO: add definition
+
+	[EventName.SubscriptionDelete]: unknown; // TODO: add definition
+
+	[EventName.TypingStart]: unknown; // TODO: add definition
+
+	[EventName.UserUpdate]: unknown; // TODO: add definition
+
+	[EventName.VoiceChannelEffectSend]: unknown; // TODO: add definition
+
+	[EventName.VoiceStateUpdate]: unknown; // TODO: add definition
+
+	[EventName.VoiceServerUpdate]: unknown; // TODO: add definition
+
+	[EventName.WebhooksUpdate]: unknown; // TODO: add definition
+
+	[EventName.MessagePollVoteAdd]: unknown; // TODO: add definition
+
+	[EventName.MessagePollVoteRemove]: unknown; // TODO: add definition
 }
 
 export type TEvent = EventName & keyof EventTypeMap;
