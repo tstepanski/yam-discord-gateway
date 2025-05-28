@@ -12,6 +12,7 @@ import {
 	GuildCreate,
 	GuildMemberAdd,
 	GuildMemberRemove,
+	GuildMemberUpdate,
 	UnavailableGuild,
 	UserRemovedFromGuild
 } from "../guilds";
@@ -91,7 +92,7 @@ export interface EventTypeMap {
 
 	[EventName.GuildMemberRemove]: GuildMemberRemove;
 
-	[EventName.GuildMemberUpdate]: unknown; // TODO: add definition
+	[EventName.GuildMemberUpdate]: GuildMemberUpdate;
 
 	[EventName.GuildMembersChunk]: unknown; // TODO: add definition
 
