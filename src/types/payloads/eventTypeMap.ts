@@ -24,6 +24,7 @@ import {GuildRoleCreate, GuildRoleDelete, GuildRoleUpdate} from "../permissions"
 import {GuildScheduledEvent} from "../guildScheduledEvents";
 import {SoundboardSound} from "../soundboard";
 import {User} from "../users";
+import {VoiceState} from "../voice";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -175,7 +176,7 @@ export interface EventTypeMap {
 
 	[EventName.VoiceChannelEffectSend]: unknown; // TODO: add definition
 
-	[EventName.VoiceStateUpdate]: unknown; // TODO: add definition
+	[EventName.VoiceStateUpdate]: VoiceState;
 
 	[EventName.VoiceServerUpdate]: unknown; // TODO: add definition
 
