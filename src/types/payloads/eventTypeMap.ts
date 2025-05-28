@@ -22,6 +22,7 @@ import {GuildStickersUpdate} from "../stickers";
 import {GuildIntegrationsUpdate} from "../integrations";
 import {GuildRoleCreate, GuildRoleDelete, GuildRoleUpdate} from "../permissions";
 import {GuildScheduledEvent} from "../guildScheduledEvents";
+import {SoundboardSound} from "../soundboard";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -115,7 +116,7 @@ export interface EventTypeMap {
 
 	[EventName.GuildScheduledEventUserRemove]: unknown; // TODO: add definition
 
-	[EventName.GuildSoundboardSoundCreate]: unknown; // TODO: add definition
+	[EventName.GuildSoundboardSoundCreate]: SoundboardSound;
 
 	[EventName.GuildSoundboardSoundUpdate]: unknown; // TODO: add definition
 
