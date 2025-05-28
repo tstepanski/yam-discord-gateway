@@ -20,7 +20,7 @@ import {
 import {GuildAuditLogEntry} from "../auditLog";
 import {GuildStickersUpdate} from "../stickers";
 import {GuildIntegrationsUpdate} from "../integrations";
-import {GuildRoleCreate} from "../permissions";
+import {GuildRoleCreate, GuildRoleUpdate} from "../permissions";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -100,7 +100,7 @@ export interface EventTypeMap {
 
 	[EventName.GuildRoleCreate]: GuildRoleCreate;
 
-	[EventName.GuildRoleUpdate]: unknown; // TODO: add definition
+	[EventName.GuildRoleUpdate]: GuildRoleUpdate;
 
 	[EventName.GuildRoleDelete]: unknown; // TODO: add definition
 
