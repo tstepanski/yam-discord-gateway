@@ -23,6 +23,7 @@ import {GuildIntegrationsUpdate} from "../integrations";
 import {GuildRoleCreate, GuildRoleDelete, GuildRoleUpdate} from "../permissions";
 import {GuildScheduledEvent} from "../guildScheduledEvents";
 import {SoundboardSound} from "../soundboard";
+import {User} from "../users";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -170,7 +171,7 @@ export interface EventTypeMap {
 
 	[EventName.TypingStart]: unknown; // TODO: add definition
 
-	[EventName.UserUpdate]: unknown; // TODO: add definition
+	[EventName.UserUpdate]: User;
 
 	[EventName.VoiceChannelEffectSend]: unknown; // TODO: add definition
 
