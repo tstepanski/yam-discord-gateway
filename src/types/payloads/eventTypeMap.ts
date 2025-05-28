@@ -118,7 +118,7 @@ export interface EventTypeMap {
 
 	[EventName.GuildSoundboardSoundCreate]: SoundboardSound;
 
-	[EventName.GuildSoundboardSoundUpdate]: unknown; // TODO: add definition
+	[EventName.GuildSoundboardSoundUpdate]: SoundboardSound;
 
 	[EventName.GuildSoundboardSoundDelete]: unknown; // TODO: add definition
 
