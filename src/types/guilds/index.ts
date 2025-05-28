@@ -9,6 +9,7 @@ export * from "./guildMember";
 export * from "./guildMemberAdd";
 export * from "./guildMemberFlags";
 export * from "./guildMemberRemove";
+export * from "./guildMemberUpdate";
 export * from "./membersChunkEvent";
 export * from "./mfaLevel";
 export * from "./nsfwLevel";
