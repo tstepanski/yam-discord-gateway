@@ -109,7 +109,7 @@ export interface EventTypeMap {
 
 	[EventName.GuildScheduledEventUpdate]: GuildScheduledEvent;
 
-	[EventName.GuildScheduledEventDelete]: unknown; // TODO: add definition
+	[EventName.GuildScheduledEventDelete]: GuildScheduledEvent;
 
 	[EventName.GuildScheduledEventUserAdd]: unknown; // TODO: add definition
 
