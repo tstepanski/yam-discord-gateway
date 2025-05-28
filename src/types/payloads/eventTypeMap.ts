@@ -20,6 +20,7 @@ import {
 import {GuildAuditLogEntry} from "../auditLog";
 import {GuildStickersUpdate} from "../stickers";
 import {GuildIntegrationsUpdate} from "../integrations";
+import {GuildRoleCreate} from "../permissions";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -97,7 +98,7 @@ export interface EventTypeMap {
 
 	[EventName.GuildMembersChunk]: MembersChunkEvent;
 
-	[EventName.GuildRoleCreate]: unknown; // TODO: add definition
+	[EventName.GuildRoleCreate]: GuildRoleCreate;
 
 	[EventName.GuildRoleUpdate]: unknown; // TODO: add definition
 
