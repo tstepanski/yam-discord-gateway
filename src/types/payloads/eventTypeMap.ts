@@ -21,7 +21,7 @@ import {GuildAuditLogEntry} from "../auditLog";
 import {GuildStickersUpdate} from "../stickers";
 import {GuildIntegrationsUpdate} from "../integrations";
 import {GuildRoleCreate, GuildRoleDelete, GuildRoleUpdate} from "../permissions";
-import {GuildScheduledEvent} from "../guildScheduledEvents";
+import {GuildScheduledEvent, UserAdd} from "../guildScheduledEvents";
 import {SoundboardSound} from "../soundboard";
 import {User} from "../users";
 import {VoiceState} from "../voice";
@@ -114,7 +114,7 @@ export interface EventTypeMap {
 
 	[EventName.GuildScheduledEventDelete]: GuildScheduledEvent;
 
-	[EventName.GuildScheduledEventUserAdd]: unknown; // TODO: add definition
+	[EventName.GuildScheduledEventUserAdd]: UserAdd;
 
 	[EventName.GuildScheduledEventUserRemove]: unknown; // TODO: add definition
 
