@@ -8,7 +8,7 @@ import {User} from "../users";
  *
  * @interface
  */
-export interface ApplicationStructure {
+export interface Application {
     /**
      * the id of the app
      */

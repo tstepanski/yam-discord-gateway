@@ -5,7 +5,7 @@
  *
  * @interface
  */
-export interface AccountStructure {
+export interface Account {
     /**
      * id of the account
      */
