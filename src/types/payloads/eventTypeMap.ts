@@ -12,12 +12,24 @@ import {
 	GuildCreate,
 	GuildMemberAdd,
 	GuildMemberRemove,
+	GuildMemberUpdate,
+	MembersChunkEvent,
 	UnavailableGuild,
 	UserRemovedFromGuild
 } from "../guilds";
 import {GuildAuditLogEntry} from "../auditLog";
 import {GuildStickersUpdate} from "../stickers";
-import {GuildIntegrationsUpdate} from "../integrations";
+import {GuildIntegrationsUpdate, IntegrationCreate, IntegrationDelete, IntegrationUpdate} from "../integrations";
+import {GuildRoleCreate, GuildRoleDelete, GuildRoleUpdate} from "../permissions";
+import {GuildScheduledEvent, UserAdd, UserRemove} from "../guildScheduledEvents";
+import {
+	GuildSoundboardSoundDelete,
+	GuildSoundboardSoundsUpdate,
+	SoundboardSound,
+	SoundboardSounds
+} from "../soundboard";
+import {User} from "../users";
+import {VoiceState} from "../voice";
 
 /**
  * Map of {@link EventName} to expected response payload type
@@ -90,6 +102,94 @@ export interface EventTypeMap {
 	[EventName.GuildMemberAdd]: GuildMemberAdd;
 
 	[EventName.GuildMemberRemove]: GuildMemberRemove;
+
+	[EventName.GuildMemberUpdate]: GuildMemberUpdate;
+
+	[EventName.GuildMembersChunk]: MembersChunkEvent;
+
+	[EventName.GuildRoleCreate]: GuildRoleCreate;
+
+	[EventName.GuildRoleUpdate]: GuildRoleUpdate;
+
+	[EventName.GuildRoleDelete]: GuildRoleDelete;
+
+	[EventName.GuildScheduledEventCreate]: GuildScheduledEvent;
+
+	[EventName.GuildScheduledEventUpdate]: GuildScheduledEvent;
+
+	[EventName.GuildScheduledEventDelete]: GuildScheduledEvent;
+
+	[EventName.GuildScheduledEventUserAdd]: UserAdd;
+
+	[EventName.GuildScheduledEventUserRemove]: UserRemove;
+
+	[EventName.GuildSoundboardSoundCreate]: SoundboardSound;
+
+	[EventName.GuildSoundboardSoundUpdate]: SoundboardSound;
+
+	[EventName.GuildSoundboardSoundDelete]: GuildSoundboardSoundDelete;
+
+	[EventName.GuildSoundboardSoundsUpdate]: GuildSoundboardSoundsUpdate;
+
+	[EventName.SoundboardSounds]: SoundboardSounds;
+
+	[EventName.IntegrationCreate]: IntegrationCreate;
+
+	[EventName.IntegrationUpdate]: IntegrationUpdate;
+
+	[EventName.IntegrationDelete]: IntegrationDelete;
+
+	[EventName.InteractionCreate]: unknown; // TODO: add definition
+
+	[EventName.InviteCreate]: unknown; // TODO: add definition
+
+	[EventName.InviteDelete]: unknown; // TODO: add definition
+
+	[EventName.MessageCreate]: unknown; // TODO: add definition
+
+	[EventName.MessageUpdate]: unknown; // TODO: add definition
+
+	[EventName.MessageDelete]: unknown; // TODO: add definition
+
+	[EventName.MessageDeleteBulk]: unknown; // TODO: add definition
+
+	[EventName.MessageReactionAdd]: unknown; // TODO: add definition
+
+	[EventName.MessageReactionRemove]: unknown; // TODO: add definition
+
+	[EventName.MessageReactionRemoveAll]: unknown; // TODO: add definition
+
+	[EventName.MessageReactionRemoveEmoji]: unknown; // TODO: add definition
+
+	[EventName.PresenceUpdate]: unknown; // TODO: add definition
+
+	[EventName.StageInstanceCreate]: unknown; // TODO: add definition
+
+	[EventName.StageInstanceUpdate]: unknown; // TODO: add definition
+
+	[EventName.StageInstanceDelete]: unknown; // TODO: add definition
+
+	[EventName.SubscriptionCreate]: unknown; // TODO: add definition
+
+	[EventName.SubscriptionUpdate]: unknown; // TODO: add definition
+
+	[EventName.SubscriptionDelete]: unknown; // TODO: add definition
+
+	[EventName.TypingStart]: unknown; // TODO: add definition
+
+	[EventName.UserUpdate]: User;
+
+	[EventName.VoiceChannelEffectSend]: unknown; // TODO: add definition
+
+	[EventName.VoiceStateUpdate]: VoiceState;
+
+	[EventName.VoiceServerUpdate]: unknown; // TODO: add definition
+
+	[EventName.WebhooksUpdate]: unknown; // TODO: add definition
+
+	[EventName.MessagePollVoteAdd]: unknown; // TODO: add definition
+
+	[EventName.MessagePollVoteRemove]: unknown; // TODO: add definition
 }
 
 export type TEvent = EventName & keyof EventTypeMap;

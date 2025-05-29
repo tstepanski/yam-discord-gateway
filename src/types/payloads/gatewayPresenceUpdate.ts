@@ -4,20 +4,6 @@ import {Activity} from "./activity";
 /**
  * Sent by the client to indicate a presence or status update.
  *
- * @example
- * {
- *   "op": 3,
- *   "d": {
- *     "since": 91879201,
- *     "activities": [{
- *       "name": "Save the Oxford Comma",
- *       "type": 0
- *     }],
- *     "status": "online",
- *     "afk": false
- *   }
- * }
- *
  * @see [Gateway Presence Update Structure](https://discord.com/developers/docs/events/gateway-events#update-presence-gateway-presence-update-structure)
  *
  * @interface

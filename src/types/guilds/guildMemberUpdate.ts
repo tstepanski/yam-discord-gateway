@@ -1,34 +1,21 @@
-import {AvatarDecorationData, User} from "../users";
 import {Snowflake} from "../general";
+import {AvatarDecorationData, User} from "../users";
 import {GuildMemberFlags} from "./guildMemberFlags";
-import {Permission} from "../permissions";
 
 /**
- * Guild Member
+ * Sent when a guild member is updated. This will also fire when the user object of a guild member changes.
  *
- * @see [Guild Member Structure](https://discord.com/developers/docs/resources/guild#guild-member-object-guild-member-structure)
+ * @remarks If using {@link Intent Gateway Intents}, the `GUILD_MEMBERS` intent will be required to receive this event.
  *
- * @example
- * {
- *   "user": {},
- *   "nick": "NOT API SUPPORT",
- *   "avatar": null,
- *   "banner": null,
- *   "roles": [],
- *   "joined_at": "2015-04-26T06:26:56.936000+00:00",
- *   "deaf": false,
- *   "mute": false
- * }
+ * @see [Guild Member Update](https://discord.com/developers/docs/events/gateway-events#guild-member-update)
  *
  * @interface
  */
-export interface GuildMember {
+export interface GuildMemberUpdate {
     /**
      * the user this guild member represents
-     *
-     * @remarks Won't be included when attached to MESSAGE_CREATE and MESSAGE_UPDATE gateway events.
      */
-    user?: User;
+    user: User;
 
     /**
      * this user's guild nickname
@@ -38,12 +25,12 @@ export interface GuildMember {
     /**
      * the member's [guild avatar hash](https://discord.com/developers/docs/reference#image-formatting)
      */
-    avatar?: string | null;
+    avatar: string | null;
 
     /**
      * the member's [guild banner hash](https://discord.com/developers/docs/reference#image-formatting)
      */
-    banner?: string | null;
+    banner: string | null;
 
     /**
      * array of {@link Role} object ids
@@ -53,7 +40,7 @@ export interface GuildMember {
     /**
      * when the user joined the guild
      */
-    joined_at: string | Date; // TODO: setup date parsing
+    joined_at: string | Date | null; // TODO: setup date parsing
 
     /**
      * when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the
@@ -64,17 +51,17 @@ export interface GuildMember {
     /**
      * whether the user is deafened in voice channels
      */
-    deaf: boolean;
+    deaf?: boolean;
 
     /**
      * whether the user is muted in voice channels
      */
-    mute: boolean;
+    mute?: boolean;
 
     /**
      * {@link GuildMemberFlags} represented as a bit set, defaults to `0`
      */
-    flags: GuildMemberFlags;
+    flags?: GuildMemberFlags;
 
     /**
      * whether the user has not yet passed the guild's
@@ -85,11 +72,6 @@ export interface GuildMember {
      * can only be triggered by non-`pending` users, `pending` will not be defined.
      */
     pending?: boolean;
-
-    /**
-     * total permissions of the member in the channel, including overwrites, returned when in the interaction object
-     */
-    permissions?: string | Permission; // TODO: setup permission parsing
 
     /**
      * when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire
