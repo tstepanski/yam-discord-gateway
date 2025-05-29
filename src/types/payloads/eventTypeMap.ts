@@ -22,7 +22,7 @@ import {GuildStickersUpdate} from "../stickers";
 import {GuildIntegrationsUpdate} from "../integrations";
 import {GuildRoleCreate, GuildRoleDelete, GuildRoleUpdate} from "../permissions";
 import {GuildScheduledEvent, UserAdd, UserRemove} from "../guildScheduledEvents";
-import {SoundboardSound} from "../soundboard";
+import {GuildSoundboardSoundDelete, SoundboardSound} from "../soundboard";
 import {User} from "../users";
 import {VoiceState} from "../voice";
 
@@ -122,7 +122,7 @@ export interface EventTypeMap {
 
 	[EventName.GuildSoundboardSoundUpdate]: SoundboardSound;
 
-	[EventName.GuildSoundboardSoundDelete]: unknown; // TODO: add definition
+	[EventName.GuildSoundboardSoundDelete]: GuildSoundboardSoundDelete;
 
 	[EventName.GuildSoundboardSoundsUpdate]: unknown; // TODO: add definition
 
