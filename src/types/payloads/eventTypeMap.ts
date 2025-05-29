@@ -19,7 +19,7 @@ import {
 } from "../guilds";
 import {GuildAuditLogEntry} from "../auditLog";
 import {GuildStickersUpdate} from "../stickers";
-import {GuildIntegrationsUpdate, IntegrationCreate} from "../integrations";
+import {GuildIntegrationsUpdate, IntegrationCreate, IntegrationUpdate} from "../integrations";
 import {GuildRoleCreate, GuildRoleDelete, GuildRoleUpdate} from "../permissions";
 import {GuildScheduledEvent, UserAdd, UserRemove} from "../guildScheduledEvents";
 import {
@@ -135,7 +135,7 @@ export interface EventTypeMap {
 
 	[EventName.IntegrationCreate]: IntegrationCreate;
 
-	[EventName.IntegrationUpdate]: unknown; // TODO: add definition
+	[EventName.IntegrationUpdate]: IntegrationUpdate;
 
 	[EventName.IntegrationDelete]: unknown; // TODO: add definition
 
