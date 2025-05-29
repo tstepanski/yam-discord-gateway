@@ -1,3 +1,4 @@
+export * from "./guildSoundboardSoundDelete";
 export * from "./requestSoundboardSounds";
 export * from "./soundboardSound";
 export * from "./soundboardSoundsEvent";
