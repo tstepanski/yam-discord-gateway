@@ -19,7 +19,7 @@ import {
 } from "../guilds";
 import {GuildAuditLogEntry} from "../auditLog";
 import {GuildStickersUpdate} from "../stickers";
-import {GuildIntegrationsUpdate} from "../integrations";
+import {GuildIntegrationsUpdate, IntegrationCreate} from "../integrations";
 import {GuildRoleCreate, GuildRoleDelete, GuildRoleUpdate} from "../permissions";
 import {GuildScheduledEvent, UserAdd, UserRemove} from "../guildScheduledEvents";
 import {
@@ -133,7 +133,7 @@ export interface EventTypeMap {
 
 	[EventName.SoundboardSounds]: SoundboardSounds;
 
-	[EventName.IntegrationCreate]: unknown; // TODO: add definition
+	[EventName.IntegrationCreate]: IntegrationCreate;
 
 	[EventName.IntegrationUpdate]: unknown; // TODO: add definition
 
