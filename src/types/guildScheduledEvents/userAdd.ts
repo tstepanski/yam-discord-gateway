@@ -1,7 +1,7 @@
 import {Snowflake} from "../general";
 
 /**
- * Guild Scheduled Event User Add
+ * Sent when a user has subscribed to a guild scheduled event.
  *
  * @see [Guild Scheduled Event User Add](https://discord.com/developers/docs/events/gateway-events#guild-scheduled-event-user-add)
  *
