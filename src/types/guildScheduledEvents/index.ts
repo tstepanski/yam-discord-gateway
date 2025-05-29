@@ -8,4 +8,5 @@ export * from "./privacyLevel";
 export * from "./recurrenceRule";
 export * from "./status";
 export * from "./userAdd";
+export * from "./userRemove";
 export * from "./weekday";
