@@ -8,7 +8,7 @@ import {Scopes} from "../oauth2";
 /**
  * Guild Integration Object
  *
- * @see [Guild Integration Object](https://discord.com/developers/docs/resources/guild#integration-object
+ * @see [Guild Integration Object](https://discord.com/developers/docs/resources/guild#integration-object)
  *
  * @interface
  */
